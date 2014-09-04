@@ -1,0 +1,12 @@
+extensions:
+	kdyby.annotations: Kdyby\Annotations\DI\AnnotationsExtension
+	arachne.verifier: Arachne\Verifier\DI\VerifierExtension
+	arachne.propertyVerification: Arachne\PropertyVerification\DI\PropertyVerificationExtension
+	arachne.entityLoader: Arachne\EntityLoader\DI\EntityLoaderExtension
+
+nette:
+	application:
+		mapping:
+			*: Tests\Integration\Classes\*Presenter
+	session:
+		autoStart: true
