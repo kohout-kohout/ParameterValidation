@@ -50,7 +50,7 @@ class PropertyVerificationHandlerTest extends Test
 
 	/**
 	 * @expectedException Arachne\PropertyVerification\Exception\FailedPropertyVerificationException
-	 * @expectedExceptionMessage Property 'property' of parameter 'parameter' does not have the required value.
+	 * @expectedExceptionMessage Property 'property' of parameter 'parameter' does not have any of the allowed values.
 	 */
 	public function testPropertyFalse()
 	{
@@ -78,9 +78,96 @@ class PropertyVerificationHandlerTest extends Test
 		}
 	}
 
+	public function testPropertyArrayTrue()
+	{
+		$rule = new Property();
+		$rule->parameter = 'parameter';
+		$rule->property = 'property';
+		$rule->value = [
+			'property-value-1',
+			'property-value-2',
+		];
+		$request = new Request('Test', 'GET', [
+			'parameter' => 'parameter-value'
+		]);
+
+		$this->accessor
+			->shouldReceive('getValue')
+			->with('parameter-value', 'property')
+			->once()
+			->andReturn('property-value-1');
+
+		$this->assertNull($this->handler->checkRule($rule, $request));
+	}
+
 	/**
 	 * @expectedException Arachne\PropertyVerification\Exception\FailedPropertyVerificationException
-	 * @expectedExceptionMessage Property 'property' of parameter 'component-parameter' does not have the required value.
+	 * @expectedExceptionMessage Property 'property' of parameter 'parameter' does not have any of the allowed values.
+	 */
+	public function testPropertyArrayFalse()
+	{
+		$rule = new Property();
+		$rule->parameter = 'parameter';
+		$rule->property = 'property';
+		$rule->value = [
+			'property-value-1',
+			'property-value-2',
+		];
+		$request = new Request('Test', 'GET', [
+			'parameter' => 'parameter-value'
+		]);
+
+		$this->accessor
+			->shouldReceive('getValue')
+			->with('parameter-value', 'property')
+			->once()
+			->andReturn('wrong-property-value');
+
+		try {
+			$this->handler->checkRule($rule, $request);
+		} catch (FailedPropertyVerificationException $e) {
+			$this->assertSame($rule, $e->getRule());
+			$this->assertSame(NULL, $e->getComponent());
+			$this->assertSame('wrong-property-value', $e->getValue());
+			throw $e;
+		}
+	}
+
+	/**
+	 * @expectedException Arachne\PropertyVerification\Exception\FailedPropertyVerificationException
+	 * @expectedExceptionMessage Property 'property' of parameter 'parameter' does not have any of the allowed values.
+	 */
+	public function testPropertyArrayStrict()
+	{
+		$rule = new Property();
+		$rule->parameter = 'parameter';
+		$rule->property = 'property';
+		$rule->value = [
+			'0',
+		];
+		$request = new Request('Test', 'GET', [
+			'parameter' => 'parameter-value'
+		]);
+
+		$this->accessor
+			->shouldReceive('getValue')
+			->with('parameter-value', 'property')
+			->once()
+			->andReturn(0);
+
+		try {
+			$this->handler->checkRule($rule, $request);
+		} catch (FailedPropertyVerificationException $e) {
+			$this->assertSame($rule, $e->getRule());
+			$this->assertSame(NULL, $e->getComponent());
+			$this->assertSame('wrong-property-value', $e->getValue());
+			throw $e;
+		}
+	}
+
+	/**
+	 * @expectedException Arachne\PropertyVerification\Exception\FailedPropertyVerificationException
+	 * @expectedExceptionMessage Property 'property' of parameter 'component-parameter' does not have any of the allowed values.
 	 */
 	public function testPropertyComponent()
 	{

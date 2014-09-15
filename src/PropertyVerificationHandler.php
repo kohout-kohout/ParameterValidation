@@ -61,8 +61,8 @@ class PropertyVerificationHandler extends Object implements IRuleHandler
 			throw new InvalidArgumentException("Missing parameter '$parameter' in given request.");
 		}
 		$value = $this->propertyAccessor->getValue($parameters[$parameter], $rule->property);
-		if ($value !== $rule->value) {
-			$exception = new FailedPropertyVerificationException("Property '$rule->property' of parameter '$parameter' does not have the required value.");
+		if (!in_array($value, (array) $rule->value, TRUE)) {
+			$exception = new FailedPropertyVerificationException("Property '$rule->property' of parameter '$parameter' does not have any of the allowed values.");
 			$exception->setRule($rule);
 			$exception->setComponent($component);
 			$exception->setValue($value);
