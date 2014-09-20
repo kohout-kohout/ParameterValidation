@@ -1,5 +1,7 @@
 extensions:
 	kdyby.annotations: Kdyby\Annotations\DI\AnnotationsExtension
+	kdyby.translation: Kdyby\Translation\DI\TranslationExtension
+	kdyby.validator: Kdyby\Validator\DI\ValidatorExtension
 	arachne.verifier: Arachne\Verifier\DI\VerifierExtension
 	arachne.propertyVerification: Arachne\PropertyVerification\DI\PropertyVerificationExtension
 	arachne.entityLoader: Arachne\EntityLoader\DI\EntityLoaderExtension

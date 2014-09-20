@@ -18,6 +18,7 @@ use Nette\Application\Request;
 use Nette\Object;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @author Jáchym Toušek
@@ -28,8 +29,12 @@ class PropertyVerificationHandler extends Object implements IRuleHandler
 	/** @var PropertyAccessorInterface */
 	private $propertyAccessor;
 
-	public function __construct(PropertyAccessorInterface $propertyAccessor = NULL)
+	/** @var ValidatorInterface */
+	private $validator;
+
+	public function __construct(ValidatorInterface $validator, PropertyAccessorInterface $propertyAccessor = NULL)
 	{
+		$this->validator = $validator;
 		$this->propertyAccessor = $propertyAccessor ?: PropertyAccess::createPropertyAccessor();
 	}
 
@@ -61,11 +66,13 @@ class PropertyVerificationHandler extends Object implements IRuleHandler
 			throw new InvalidArgumentException("Missing parameter '$parameter' in given request.");
 		}
 		$value = $this->propertyAccessor->getValue($parameters[$parameter], $rule->property);
-		if (!in_array($value, (array) $rule->value, TRUE)) {
-			$exception = new FailedPropertyVerificationException("Property '$rule->property' of parameter '$parameter' does not have any of the allowed values.");
+		$violations = $this->validator->validate($value, $rule->constraints);
+		if ($violations->count()) {
+			$exception = new FailedPropertyVerificationException("Property '$rule->property' of parameter '$parameter' does not meet the constraints.");
 			$exception->setRule($rule);
 			$exception->setComponent($component);
 			$exception->setValue($value);
+			$exception->setViolations($violations);
 			throw $exception;
 		}
 	}

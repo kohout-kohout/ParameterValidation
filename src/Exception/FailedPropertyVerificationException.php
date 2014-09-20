@@ -12,6 +12,7 @@ namespace Arachne\PropertyVerification\Exception;
 
 use Arachne\PropertyVerification\Property;
 use Nette\Application\ForbiddenRequestException;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  * @author Jáchym Toušek
@@ -27,6 +28,9 @@ class FailedPropertyVerificationException extends ForbiddenRequestException
 
 	/** @var mixed */
 	private $value;
+
+	/** @var ConstraintViolationListInterface */
+	private $violations;
 
 	/**
 	 * @return Property
@@ -53,6 +57,14 @@ class FailedPropertyVerificationException extends ForbiddenRequestException
 	}
 
 	/**
+	 * @return mixed
+	 */
+	public function getViolations()
+	{
+		return $this->violations;
+	}
+
+	/**
 	 * @param Property $rule
 	 */
 	public function setRule(Property $rule)
@@ -74,6 +86,14 @@ class FailedPropertyVerificationException extends ForbiddenRequestException
 	public function setValue($value)
 	{
 		$this->value = $value;
+	}
+
+	/**
+	 * @param ConstraintViolationListInterface $violations
+	 */
+	public function setViolations(ConstraintViolationListInterface $violations)
+	{
+		$this->violations = $violations;
 	}
 
 }

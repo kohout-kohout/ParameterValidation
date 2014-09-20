@@ -28,7 +28,11 @@ class Property extends Object implements IRule
 	/** @var string */
 	public $property;
 
-	/** @var mixed */
-	public $value;
+	/**
+	 * @todo Don't use fully qualified type.
+	 * @link http://www.doctrine-project.org/jira/browse/DCOM-253
+	 * @var \Symfony\Component\Validator\Constraint[]
+	 */
+	public $constraints;
 
 }
