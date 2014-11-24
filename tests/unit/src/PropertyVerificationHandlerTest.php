@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use Arachne\PropertyVerification\Exception\FailedPropertyVerificationException;
-use Arachne\PropertyVerification\Property;
-use Arachne\PropertyVerification\PropertyVerificationHandler;
+use Arachne\ParameterValidation\Exception\FailedParameterValidationException;
+use Arachne\ParameterValidation\Validate;
+use Arachne\ParameterValidation\ParameterValidationHandler;
 use Arachne\Verifier\IRule;
 use Codeception\TestCase\Test;
 use Mockery;
@@ -18,10 +18,10 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @author Jáchym Toušek
  */
-class PropertyVerificationHandlerTest extends Test
+class ParameterValidationHandlerTest extends Test
 {
 
-	/** @var PropertyVerificationHandler */
+	/** @var ParameterValidationHandler */
 	private $handler;
 
 	/** @var MockInterface */
@@ -34,12 +34,12 @@ class PropertyVerificationHandlerTest extends Test
 	{
 		$this->accessor = Mockery::mock(PropertyAccessorInterface::class);
 		$this->validator = Mockery::mock(ValidatorInterface::class);
-		$this->handler = new PropertyVerificationHandler($this->validator, $this->accessor);
+		$this->handler = new ParameterValidationHandler($this->validator, $this->accessor);
 	}
 
 	public function testPropertyTrue()
 	{
-		$rule = new Property();
+		$rule = new Validate();
 		$rule->parameter = 'parameter';
 		$rule->property = 'property';
 
@@ -66,12 +66,12 @@ class PropertyVerificationHandlerTest extends Test
 	}
 
 	/**
-	 * @expectedException Arachne\PropertyVerification\Exception\FailedPropertyVerificationException
+	 * @expectedException Arachne\ParameterValidation\Exception\FailedParameterValidationException
 	 * @expectedExceptionMessage Property 'property' of parameter 'parameter' does not meet the constraints.
 	 */
 	public function testPropertyFalse()
 	{
-		$rule = new Property();
+		$rule = new Validate();
 		$rule->parameter = 'parameter';
 		$rule->property = 'property';
 
@@ -98,7 +98,7 @@ class PropertyVerificationHandlerTest extends Test
 
 		try {
 			$this->handler->checkRule($rule, $request);
-		} catch (FailedPropertyVerificationException $e) {
+		} catch (FailedParameterValidationException $e) {
 			$this->assertSame($rule, $e->getRule());
 			$this->assertSame(NULL, $e->getComponent());
 			$this->assertSame('wrong-property-value', $e->getValue());
@@ -108,12 +108,12 @@ class PropertyVerificationHandlerTest extends Test
 	}
 
 	/**
-	 * @expectedException Arachne\PropertyVerification\Exception\FailedPropertyVerificationException
+	 * @expectedException Arachne\ParameterValidation\Exception\FailedParameterValidationException
 	 * @expectedExceptionMessage Property 'property' of parameter 'component-parameter' does not meet the constraints.
 	 */
 	public function testPropertyComponent()
 	{
-		$rule = new Property();
+		$rule = new Validate();
 		$rule->parameter = 'parameter';
 		$rule->property = 'property';
 
@@ -140,7 +140,7 @@ class PropertyVerificationHandlerTest extends Test
 
 		try {
 			$this->handler->checkRule($rule, $request, 'component');
-		} catch (FailedPropertyVerificationException $e) {
+		} catch (FailedParameterValidationException $e) {
 			$this->assertSame($rule, $e->getRule());
 			$this->assertSame('component', $e->getComponent());
 			$this->assertSame('wrong-property-value', $e->getValue());
@@ -150,12 +150,12 @@ class PropertyVerificationHandlerTest extends Test
 	}
 
 	/**
-	 * @expectedException Arachne\PropertyVerification\Exception\InvalidArgumentException
+	 * @expectedException Arachne\ParameterValidation\Exception\InvalidArgumentException
 	 * @expectedExceptionMessage Missing parameter 'parameter' in given request.
 	 */
 	public function testPropertyWrongParameter()
 	{
-		$rule = new Property();
+		$rule = new Validate();
 		$rule->parameter = 'parameter';
 		$request = new Request('Test', 'GET', []);
 
@@ -163,7 +163,7 @@ class PropertyVerificationHandlerTest extends Test
 	}
 
 	/**
-	 * @expectedException Arachne\PropertyVerification\Exception\InvalidArgumentException
+	 * @expectedException Arachne\ParameterValidation\Exception\InvalidArgumentException
 	 */
 	public function testUnknownAnnotation()
 	{

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the file license.md that was distributed with this source code.
  */
 
-namespace Arachne\PropertyVerification\DI;
+namespace Arachne\ParameterValidation\DI;
 
 use Arachne\Verifier\DI\VerifierExtension;
 use Nette\DI\CompilerExtension;
@@ -16,7 +16,7 @@ use Nette\DI\CompilerExtension;
 /**
  * @author Jáchym Toušek
  */
-class PropertyVerificationExtension extends CompilerExtension
+class ParameterValidationExtension extends CompilerExtension
 {
 
 	public function loadConfiguration()
@@ -24,9 +24,9 @@ class PropertyVerificationExtension extends CompilerExtension
 		$builder = $this->getContainerBuilder();
 
 		$builder->addDefinition($this->prefix('handler'))
-			->setClass('Arachne\PropertyVerification\PropertyVerificationHandler')
+			->setClass('Arachne\ParameterValidation\ParameterValidationHandler')
 			->addTag(VerifierExtension::TAG_HANDLER, array(
-				'Arachne\PropertyVerification\Property',
+				'Arachne\ParameterValidation\Validate',
 			));
 	}
 

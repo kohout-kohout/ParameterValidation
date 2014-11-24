@@ -1,10 +1,10 @@
 extensions:
-	kdyby.annotations: Kdyby\Annotations\DI\AnnotationsExtension
-	kdyby.translation: Kdyby\Translation\DI\TranslationExtension
-	kdyby.validator: Kdyby\Validator\DI\ValidatorExtension
-	arachne.verifier: Arachne\Verifier\DI\VerifierExtension
-	arachne.propertyVerification: Arachne\PropertyVerification\DI\PropertyVerificationExtension
-	arachne.entityLoader: Arachne\EntityLoader\DI\EntityLoaderExtension
+	Kdyby.Annotations: Kdyby\Annotations\DI\AnnotationsExtension
+	Kdyby.Translation: Kdyby\Translation\DI\TranslationExtension
+	Kdyby.Validator: Kdyby\Validator\DI\ValidatorExtension
+	Arachne.Verifier: Arachne\Verifier\DI\VerifierExtension
+	Arachne.ParameterValidation: Arachne\ParameterValidation\DI\ParameterValidationExtension
+	Arachne.EntityLoader: Arachne\EntityLoader\DI\EntityLoaderExtension
 
 nette:
 	application:

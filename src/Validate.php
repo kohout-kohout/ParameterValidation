@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the file license.md that was distributed with this source code.
  */
 
-namespace Arachne\PropertyVerification;
+namespace Arachne\ParameterValidation;
 
 use Arachne\Verifier\IRule;
 use Nette\Object;
@@ -19,7 +19,7 @@ use Nette\Object;
  * @Annotation
  * @Target({"CLASS", "METHOD"})
  */
-class Property extends Object implements IRule
+class Validate extends Object implements IRule
 {
 
 	/** @var string */

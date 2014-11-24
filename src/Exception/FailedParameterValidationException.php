@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the file license.md that was distributed with this source code.
  */
 
-namespace Arachne\PropertyVerification\Exception;
+namespace Arachne\ParameterValidation\Exception;
 
-use Arachne\PropertyVerification\Property;
+use Arachne\ParameterValidation\Validate;
 use Nette\Application\ForbiddenRequestException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  * @author Jáchym Toušek
  */
-class FailedPropertyVerificationException extends ForbiddenRequestException
+class FailedParameterValidationException extends ForbiddenRequestException
 {
 
-	/** @var Property */
+	/** @var Validate */
 	private $rule;
 
 	/** @var string */
@@ -33,7 +33,7 @@ class FailedPropertyVerificationException extends ForbiddenRequestException
 	private $violations;
 
 	/**
-	 * @return Property
+	 * @return Validate
 	 */
 	public function getRule()
 	{
@@ -65,9 +65,9 @@ class FailedPropertyVerificationException extends ForbiddenRequestException
 	}
 
 	/**
-	 * @param Property $rule
+	 * @param Validate $rule
 	 */
-	public function setRule(Property $rule)
+	public function setRule(Validate $rule)
 	{
 		$this->rule = $rule;
 	}

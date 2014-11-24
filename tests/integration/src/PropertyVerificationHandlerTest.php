@@ -12,7 +12,7 @@ use Tests\Integration\Classes\ArticlePresenter;
 /**
  * @author Jáchym Toušek
  */
-class PropertyVerificationHandlerTest extends Test
+class ParameterValidationHandlerTest extends Test
 {
 
 	/** @var Verifier */

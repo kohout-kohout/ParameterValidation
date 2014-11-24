@@ -1,11 +1,11 @@
 {
-	"name": "arachne/property-verification",
+	"name": "arachne/parameter-validation",
 	"type": "library",
 	"keywords": [ "nette", "arachne", "security" ],
 	"authors": [
 		{
 			"name": "Jáchym Toušek",
-			"homepage": "http://m33.cz/",
+			"homepage": "http://enumag.cz",
 			"email": "enumag@gmail.com"
 		}
 	],
@@ -29,7 +29,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Arachne\\PropertyVerification\\": "src"
+			"Arachne\\ParameterValidation\\": "src"
 		}
 	},
 	"autoload-dev": {
