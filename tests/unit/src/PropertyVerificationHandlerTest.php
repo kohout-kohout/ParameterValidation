@@ -37,6 +37,62 @@ class ParameterValidationHandlerTest extends Test
 		$this->handler = new ParameterValidationHandler($this->validator, $this->accessor);
 	}
 
+	public function testParameterTrue()
+	{
+		$rule = new Validate();
+		$rule->parameter = 'parameter';
+
+		$constraint = new EqualTo();
+		$constraint->value = 'property-value';
+		$rule->constraints = $constraint;
+
+		$request = new Request('Test', 'GET', [
+			'parameter' => 'parameter-value'
+		]);
+
+		$this->validator
+			->shouldReceive('validate')
+			->with('parameter-value', $constraint)
+			->andReturn($this->createViolationsMock());
+
+		$this->assertNull($this->handler->checkRule($rule, $request));
+	}
+
+	/**
+	 * @expectedException Arachne\ParameterValidation\Exception\FailedParameterValidationException
+	 * @expectedExceptionMessage Parameter 'parameter' does not match the constraints.
+	 */
+	public function testParameterFalse()
+	{
+		$rule = new Validate();
+		$rule->parameter = 'parameter';
+
+		$constraint = new EqualTo();
+		$constraint->value = 'parameter-value';
+		$rule->constraints = $constraint;
+
+		$request = new Request('Test', 'GET', [
+			'parameter' => 'wrong-parameter-value'
+		]);
+
+		$violations = $this->createViolationsMock(1);
+
+		$this->validator
+			->shouldReceive('validate')
+			->with('wrong-parameter-value', $constraint)
+			->andReturn($violations);
+
+		try {
+			$this->handler->checkRule($rule, $request);
+		} catch (FailedParameterValidationException $e) {
+			$this->assertSame($rule, $e->getRule());
+			$this->assertSame(NULL, $e->getComponent());
+			$this->assertSame('wrong-parameter-value', $e->getValue());
+			$this->assertSame($violations, $e->getViolations());
+			throw $e;
+		}
+	}
+
 	public function testPropertyTrue()
 	{
 		$rule = new Validate();

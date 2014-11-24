@@ -29,6 +29,7 @@ class ParameterValidationHandlerTest extends Test
 		$request = new Request('Article', 'GET', [
 			Presenter::ACTION_KEY => 'edit',
 			'entity' => new ArticleEntity(1),
+			'id' => 2,
 		]);
 
 		$this->assertTrue($this->verifier->isLinkVerified($request, new ArticlePresenter()));
@@ -39,6 +40,7 @@ class ParameterValidationHandlerTest extends Test
 		$request = new Request('Article', 'GET', [
 			Presenter::ACTION_KEY => 'edit',
 			'entity' => new ArticleEntity(2),
+			'id' => 2,
 		]);
 
 		$this->assertFalse($this->verifier->isLinkVerified($request, new ArticlePresenter()));
