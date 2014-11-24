@@ -68,7 +68,7 @@ class ParameterValidationHandler extends Object implements IRuleHandler
 		$value = $this->propertyAccessor->getValue($parameters[$parameter], $rule->property);
 		$violations = $this->validator->validate($value, $rule->constraints);
 		if ($violations->count()) {
-			$exception = new FailedParameterValidationException("Property '$rule->property' of parameter '$parameter' does not meet the constraints.");
+			$exception = new FailedParameterValidationException("Property '$rule->property' of parameter '$parameter' does not match the constraints.");
 			$exception->setRule($rule);
 			$exception->setComponent($component);
 			$exception->setValue($value);

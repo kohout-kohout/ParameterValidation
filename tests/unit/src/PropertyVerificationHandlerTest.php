@@ -67,7 +67,7 @@ class ParameterValidationHandlerTest extends Test
 
 	/**
 	 * @expectedException Arachne\ParameterValidation\Exception\FailedParameterValidationException
-	 * @expectedExceptionMessage Property 'property' of parameter 'parameter' does not meet the constraints.
+	 * @expectedExceptionMessage Property 'property' of parameter 'parameter' does not match the constraints.
 	 */
 	public function testPropertyFalse()
 	{
@@ -109,7 +109,7 @@ class ParameterValidationHandlerTest extends Test
 
 	/**
 	 * @expectedException Arachne\ParameterValidation\Exception\FailedParameterValidationException
-	 * @expectedExceptionMessage Property 'property' of parameter 'component-parameter' does not meet the constraints.
+	 * @expectedExceptionMessage Property 'property' of parameter 'component-parameter' does not match the constraints.
 	 */
 	public function testPropertyComponent()
 	{
