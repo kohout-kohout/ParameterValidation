@@ -26,11 +26,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ParameterValidationHandler extends Object implements IRuleHandler
 {
 
-	/** @var PropertyAccessorInterface */
-	private $propertyAccessor;
-
 	/** @var ValidatorInterface */
-	private $validator;
+	protected $validator;
+
+	/** @var PropertyAccessorInterface */
+	protected $propertyAccessor;
 
 	public function __construct(ValidatorInterface $validator, PropertyAccessorInterface $propertyAccessor = NULL)
 	{
