@@ -27,10 +27,10 @@ class ParameterValidationHandler extends Object implements IRuleHandler
 {
 
 	/** @var ValidatorInterface */
-	protected $validator;
+	private $validator;
 
 	/** @var PropertyAccessorInterface */
-	protected $propertyAccessor;
+	private $propertyAccessor;
 
 	public function __construct(ValidatorInterface $validator, PropertyAccessorInterface $propertyAccessor = NULL)
 	{
@@ -58,7 +58,7 @@ class ParameterValidationHandler extends Object implements IRuleHandler
 	 * @param string $component
 	 * @throws FailedParameterValidationException
 	 */
-	protected function checkRuleValidate(Validate $rule, Request $request, $component)
+	private function checkRuleValidate(Validate $rule, Request $request, $component)
 	{
 		$parameters = $request->getParameters();
 		$parameter = $component === NULL ? $rule->parameter : $component . '-' . $rule->parameter;
