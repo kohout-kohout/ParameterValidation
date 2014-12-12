@@ -14,7 +14,7 @@
 		"nette/di": "~2.2",
 		"symfony/property-access": "~2.4",
 		"kdyby/validator": "dev-master",
-		"arachne/verifier": "~0.2"
+		"arachne/verifier": "~0.4"
 	},
 	"require-dev": {
 		"php": ">=5.5.0",

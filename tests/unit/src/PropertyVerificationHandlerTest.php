@@ -3,9 +3,9 @@
 namespace Tests\Unit;
 
 use Arachne\ParameterValidation\Exception\FailedParameterValidationException;
-use Arachne\ParameterValidation\Validate;
-use Arachne\ParameterValidation\ParameterValidationHandler;
-use Arachne\Verifier\IRule;
+use Arachne\ParameterValidation\Rules\Validate;
+use Arachne\ParameterValidation\Rules\ParameterValidationHandler;
+use Arachne\Verifier\RuleInterface;
 use Codeception\TestCase\Test;
 use Mockery;
 use Mockery\MockInterface;
@@ -223,7 +223,7 @@ class ParameterValidationHandlerTest extends Test
 	 */
 	public function testUnknownAnnotation()
 	{
-		$rule = Mockery::mock(IRule::class);
+		$rule = Mockery::mock(RuleInterface::class);
 		$request = new Request('Test', 'GET', []);
 
 		$this->handler->checkRule($rule, $request);

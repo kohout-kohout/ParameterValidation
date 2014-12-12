@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the file license.md that was distributed with this source code.
  */
 
-namespace Arachne\ParameterValidation;
+namespace Arachne\ParameterValidation\Rules;
 
-use Arachne\Verifier\IRule;
+use Arachne\Verifier\RuleInterface;
 use Nette\Object;
 
 /**
  * @author Jáchym Toušek
  *
  * @Annotation
- * @Target({"CLASS", "METHOD"})
+ * @Target({"CLASS", "METHOD", "ANNOTATION"})
  */
-class Validate extends Object implements IRule
+class Validate extends Object implements RuleInterface
 {
 
 	/** @var string */

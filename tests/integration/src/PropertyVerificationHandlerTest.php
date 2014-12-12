@@ -46,4 +46,14 @@ class ParameterValidationHandlerTest extends Test
 		$this->assertFalse($this->verifier->isLinkVerified($request, new ArticlePresenter()));
 	}
 
+	public function testInnerRules()
+	{
+		$request = new Request('Article', 'GET', [
+			Presenter::ACTION_KEY => 'innerrules',
+			'id' => 1,
+		]);
+
+		$this->assertFalse($this->verifier->isLinkVerified($request, new ArticlePresenter()));
+	}
+
 }

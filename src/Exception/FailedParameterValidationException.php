@@ -10,7 +10,7 @@
 
 namespace Arachne\ParameterValidation\Exception;
 
-use Arachne\ParameterValidation\Validate;
+use Arachne\ParameterValidation\Rules\Validate;
 use Nette\Application\ForbiddenRequestException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 

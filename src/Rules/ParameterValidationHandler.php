@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the file license.md that was distributed with this source code.
  */
 
-namespace Arachne\ParameterValidation;
+namespace Arachne\ParameterValidation\Rules;
 
 use Arachne\ParameterValidation\Exception\FailedParameterValidationException;
 use Arachne\ParameterValidation\Exception\InvalidArgumentException;
-use Arachne\Verifier\IRule;
-use Arachne\Verifier\IRuleHandler;
+use Arachne\Verifier\RuleHandlerInterface;
+use Arachne\Verifier\RuleInterface;
 use Nette\Application\Request;
 use Nette\Object;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @author Jáchym Toušek
  */
-class ParameterValidationHandler extends Object implements IRuleHandler
+class ParameterValidationHandler extends Object implements RuleHandlerInterface
 {
 
 	/** @var ValidatorInterface */
@@ -39,11 +39,11 @@ class ParameterValidationHandler extends Object implements IRuleHandler
 	}
 
 	/**
-	 * @param IRule $rule
+	 * @param RuleInterface $rule
 	 * @param Request $request
 	 * @throws FailedAuthenticationException
 	 */
-	public function checkRule(IRule $rule, Request $request, $component = NULL)
+	public function checkRule(RuleInterface $rule, Request $request, $component = NULL)
 	{
 		if ($rule instanceof Validate) {
 			$this->checkRuleValidate($rule, $request, $component);

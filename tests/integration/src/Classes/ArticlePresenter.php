@@ -2,7 +2,8 @@
 
 namespace Tests\Integration\Classes;
 
-use Arachne\ParameterValidation\Validate;
+use Arachne\ParameterValidation\Rules\Validate;
+use Arachne\Verifier\Rules\All;
 use Nette\Application\UI\Presenter;
 use Symfony\Component\Validator\Constraints\EqualTo;
 
@@ -17,6 +18,15 @@ class ArticlePresenter extends Presenter
 	 * @Validate(parameter = "id", constraints = @EqualTo(value = 2))
 	 */
 	public function actionEdit(ArticleEntity $entity, $id)
+	{
+	}
+
+	/**
+	 * @All({
+	 *   @Validate(parameter = "id", constraints = @EqualTo(value = 2))
+	 * })
+	 */
+	public function actionInnerRules($id)
 	{
 	}
 
