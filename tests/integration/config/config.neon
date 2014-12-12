@@ -4,7 +4,6 @@ extensions:
 	Kdyby.Validator: Kdyby\Validator\DI\ValidatorExtension
 	Arachne.Verifier: Arachne\Verifier\DI\VerifierExtension
 	Arachne.ParameterValidation: Arachne\ParameterValidation\DI\ParameterValidationExtension
-	Arachne.EntityLoader: Arachne\EntityLoader\DI\EntityLoaderExtension
 
 nette:
 	application:
