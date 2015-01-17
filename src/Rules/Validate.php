@@ -25,9 +25,6 @@ class Validate extends Object implements RuleInterface
 	/** @var string */
 	public $parameter;
 
-	/** @var string */
-	public $property;
-
 	/**
 	 * @todo Don't use fully qualified type.
 	 * @link http://www.doctrine-project.org/jira/browse/DCOM-253

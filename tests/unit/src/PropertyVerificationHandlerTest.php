@@ -46,9 +46,18 @@ class ParameterValidationHandlerTest extends Test
 		$constraint->value = 'property-value';
 		$rule->constraints = $constraint;
 
-		$request = new Request('Test', 'GET', [
-			'parameter' => 'parameter-value'
-		]);
+		$parameters = [
+			'parameter' => 'value',
+		];
+		$request = new Request('Test', 'GET', $parameters);
+
+		$this->accessor
+			->shouldReceive('getValue')
+			->with(Mockery::on(function ($parameter) use ($parameters) {
+				return $parameter == (object) $parameters;
+			}), 'parameter')
+			->once()
+			->andReturn('parameter-value');
 
 		$this->validator
 			->shouldReceive('validate')
@@ -71,9 +80,18 @@ class ParameterValidationHandlerTest extends Test
 		$constraint->value = 'parameter-value';
 		$rule->constraints = $constraint;
 
-		$request = new Request('Test', 'GET', [
-			'parameter' => 'wrong-parameter-value'
-		]);
+		$parameters = [
+			'parameter' => 'value',
+		];
+		$request = new Request('Test', 'GET', $parameters);
+
+		$this->accessor
+			->shouldReceive('getValue')
+			->with(Mockery::on(function ($parameter) use ($parameters) {
+				return $parameter == (object) $parameters;
+			}), 'parameter')
+			->once()
+			->andReturn('wrong-parameter-value');
 
 		$violations = $this->createViolationsMock(1);
 
@@ -96,20 +114,22 @@ class ParameterValidationHandlerTest extends Test
 	public function testPropertyTrue()
 	{
 		$rule = new Validate();
-		$rule->parameter = 'parameter';
-		$rule->property = 'property';
+		$rule->parameter = 'parameter.property';
 
 		$constraint = new EqualTo();
 		$constraint->value = 'property-value';
 		$rule->constraints = $constraint;
 
-		$request = new Request('Test', 'GET', [
-			'parameter' => 'parameter-value'
-		]);
+		$parameters = [
+			'parameter' => 'parameter-value',
+		];
+		$request = new Request('Test', 'GET', $parameters);
 
 		$this->accessor
 			->shouldReceive('getValue')
-			->with('parameter-value', 'property')
+			->with(Mockery::on(function ($parameter) use ($parameters) {
+				return $parameter == (object) $parameters;
+			}), 'parameter.property')
 			->once()
 			->andReturn('property-value');
 
@@ -123,25 +143,27 @@ class ParameterValidationHandlerTest extends Test
 
 	/**
 	 * @expectedException Arachne\ParameterValidation\Exception\FailedParameterValidationException
-	 * @expectedExceptionMessage Property 'property' of parameter 'parameter' does not match the constraints.
+	 * @expectedExceptionMessage Parameter 'parameter.property' does not match the constraints.
 	 */
 	public function testPropertyFalse()
 	{
 		$rule = new Validate();
-		$rule->parameter = 'parameter';
-		$rule->property = 'property';
+		$rule->parameter = 'parameter.property';
 
 		$constraint = new EqualTo();
 		$constraint->value = 'property-value';
 		$rule->constraints = $constraint;
 
-		$request = new Request('Test', 'GET', [
-			'parameter' => 'parameter-value'
-		]);
+		$parameters = [
+			'parameter' => 'parameter-value',
+		];
+		$request = new Request('Test', 'GET', $parameters);
 
 		$this->accessor
 			->shouldReceive('getValue')
-			->with('parameter-value', 'property')
+			->with(Mockery::on(function ($parameter) use ($parameters) {
+				return $parameter == (object) $parameters;
+			}), 'parameter.property')
 			->once()
 			->andReturn('wrong-property-value');
 
@@ -165,25 +187,27 @@ class ParameterValidationHandlerTest extends Test
 
 	/**
 	 * @expectedException Arachne\ParameterValidation\Exception\FailedParameterValidationException
-	 * @expectedExceptionMessage Property 'property' of parameter 'component-parameter' does not match the constraints.
+	 * @expectedExceptionMessage Parameter 'component-parameter.property' does not match the constraints.
 	 */
 	public function testPropertyComponent()
 	{
 		$rule = new Validate();
-		$rule->parameter = 'parameter';
-		$rule->property = 'property';
+		$rule->parameter = 'parameter.property';
 
 		$constraint = new EqualTo();
 		$constraint->value = 'property-value';
 		$rule->constraints = $constraint;
 
-		$request = new Request('Test', 'GET', [
+		$parameters = [
 			'component-parameter' => 'parameter-value'
-		]);
+		];
+		$request = new Request('Test', 'GET', $parameters);
 
 		$this->accessor
 			->shouldReceive('getValue')
-			->with('parameter-value', 'property')
+			->with(Mockery::on(function ($parameter) use ($parameters) {
+				return $parameter == (object) $parameters;
+			}), 'component-parameter.property')
 			->once()
 			->andReturn('wrong-property-value');
 
@@ -203,19 +227,6 @@ class ParameterValidationHandlerTest extends Test
 			$this->assertSame($violations, $e->getViolations());
 			throw $e;
 		}
-	}
-
-	/**
-	 * @expectedException Arachne\ParameterValidation\Exception\InvalidArgumentException
-	 * @expectedExceptionMessage Missing parameter 'parameter' in given request.
-	 */
-	public function testPropertyWrongParameter()
-	{
-		$rule = new Validate();
-		$rule->parameter = 'parameter';
-		$request = new Request('Test', 'GET', []);
-
-		$this->handler->checkRule($rule, $request);
 	}
 
 	/**

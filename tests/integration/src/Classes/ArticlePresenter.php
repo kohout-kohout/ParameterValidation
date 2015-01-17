@@ -14,7 +14,7 @@ class ArticlePresenter extends Presenter
 {
 
 	/**
-	 * @Validate(parameter = "entity", property = "id", constraints = @EqualTo(value = 1))
+	 * @Validate(parameter = "entity.id", constraints = @EqualTo(value = 1))
 	 * @Validate(parameter = "id", constraints = @EqualTo(value = 2))
 	 */
 	public function actionEdit(ArticleEntity $entity, $id)
@@ -28,6 +28,11 @@ class ArticlePresenter extends Presenter
 	 */
 	public function actionInnerRules($id)
 	{
+	}
+
+	protected function createComponentArticle()
+	{
+		return new ArticleControl();
 	}
 
 }

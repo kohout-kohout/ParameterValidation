@@ -56,4 +56,28 @@ class ParameterValidationHandlerTest extends Test
 		$this->assertFalse($this->verifier->isLinkVerified($request, new ArticlePresenter()));
 	}
 
+	public function testComponentSignalAllowed()
+	{
+		$request = new Request('Article', 'GET', [
+			Presenter::ACTION_KEY => 'default',
+			Presenter::SIGNAL_KEY => 'article-delete',
+			'article-entity' => new ArticleEntity(1),
+			'article-id' => 2,
+		]);
+
+		$this->assertTrue($this->verifier->isLinkVerified($request, (new ArticlePresenter())->getComponent('article')));
+	}
+
+	public function testComponentSignalDisallowed()
+	{
+		$request = new Request('Article', 'GET', [
+			Presenter::ACTION_KEY => 'default',
+			Presenter::SIGNAL_KEY => 'article-delete',
+			'article-entity' => new ArticleEntity(2),
+			'article-id' => 2,
+		]);
+
+		$this->assertFalse($this->verifier->isLinkVerified($request, (new ArticlePresenter())->getComponent('article')));
+	}
+
 }

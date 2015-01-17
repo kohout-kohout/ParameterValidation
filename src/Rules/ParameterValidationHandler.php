@@ -62,13 +62,10 @@ class ParameterValidationHandler extends Object implements RuleHandlerInterface
 	{
 		$parameters = $request->getParameters();
 		$parameter = $component === NULL ? $rule->parameter : $component . '-' . $rule->parameter;
-		if (!isset($parameters[$parameter])) {
-			throw new InvalidArgumentException("Missing parameter '$parameter' in given request.");
-		}
-		$value = $rule->property === NULL ? $parameters[$parameter] : $this->propertyAccessor->getValue($parameters[$parameter], $rule->property);
+		$value = $this->propertyAccessor->getValue((object) $parameters, $parameter);
 		$violations = $this->validator->validate($value, $rule->constraints);
 		if ($violations->count()) {
-			$message = $rule->property === NULL ? "Parameter '$parameter' does not match the constraints." : "Property '$rule->property' of parameter '$parameter' does not match the constraints.";
+			$message = "Parameter '$parameter' does not match the constraints.";
 			$exception = new FailedParameterValidationException($message);
 			$exception->setRule($rule);
 			$exception->setComponent($component);
