@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @author Jáchym Toušek <enumag@gmail.com>
  */
-class ParameterValidationHandler extends Object implements RuleHandlerInterface
+class ValidateRuleHandler extends Object implements RuleHandlerInterface
 {
 
 	/** @var ValidatorInterface */
@@ -45,21 +45,10 @@ class ParameterValidationHandler extends Object implements RuleHandlerInterface
 	 */
 	public function checkRule(RuleInterface $rule, Request $request, $component = NULL)
 	{
-		if ($rule instanceof Validate) {
-			$this->checkRuleValidate($rule, $request, $component);
-		} else {
+		if (!$rule instanceof Validate) {
 			throw new InvalidArgumentException('Unknown rule \'' . get_class($rule) . '\' given.');
 		}
-	}
 
-	/**
-	 * @param Validate $rule
-	 * @param Request $request
-	 * @param string $component
-	 * @throws FailedParameterValidationException
-	 */
-	private function checkRuleValidate(Validate $rule, Request $request, $component)
-	{
 		$parameters = $request->getParameters();
 		$parameter = $component === NULL ? $rule->parameter : $component . '-' . $rule->parameter;
 		$value = $this->propertyAccessor->getValue((object) $parameters, $parameter);

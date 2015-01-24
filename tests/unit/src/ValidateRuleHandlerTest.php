@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use Arachne\ParameterValidation\Exception\FailedParameterValidationException;
 use Arachne\ParameterValidation\Rules\Validate;
-use Arachne\ParameterValidation\Rules\ParameterValidationHandler;
+use Arachne\ParameterValidation\Rules\ValidateRuleHandler;
 use Arachne\Verifier\RuleInterface;
 use Codeception\TestCase\Test;
 use Mockery;
@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @author Jáchym Toušek <enumag@gmail.com>
  */
-class ParameterValidationHandlerTest extends Test
+class ValidateRuleHandlerTest extends Test
 {
 
 	/** @var ParameterValidationHandler */
@@ -34,7 +34,7 @@ class ParameterValidationHandlerTest extends Test
 	{
 		$this->accessor = Mockery::mock(PropertyAccessorInterface::class);
 		$this->validator = Mockery::mock(ValidatorInterface::class);
-		$this->handler = new ParameterValidationHandler($this->validator, $this->accessor);
+		$this->handler = new ValidateRuleHandler($this->validator, $this->accessor);
 	}
 
 	public function testParameterTrue()
