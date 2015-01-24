@@ -7,7 +7,7 @@ use Nette\Application\UI\Control;
 use Symfony\Component\Validator\Constraints\EqualTo;
 
 /**
- * @author Jáchym Toušek
+ * @author Jáchym Toušek <enumag@gmail.com>
  */
 class ArticleControl extends Control
 {

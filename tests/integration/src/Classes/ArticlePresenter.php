@@ -8,7 +8,7 @@ use Nette\Application\UI\Presenter;
 use Symfony\Component\Validator\Constraints\EqualTo;
 
 /**
- * @author Jáchym Toušek
+ * @author Jáchym Toušek <enumag@gmail.com>
  */
 class ArticlePresenter extends Presenter
 {

@@ -15,7 +15,7 @@ use Nette\Application\ForbiddenRequestException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
- * @author Jáchym Toušek
+ * @author Jáchym Toušek <enumag@gmail.com>
  */
 class FailedParameterValidationException extends ForbiddenRequestException
 {

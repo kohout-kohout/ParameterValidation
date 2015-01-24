@@ -14,7 +14,7 @@ use Arachne\Verifier\DI\VerifierExtension;
 use Nette\DI\CompilerExtension;
 
 /**
- * @author Jáchym Toušek
+ * @author Jáchym Toušek <enumag@gmail.com>
  */
 class ParameterValidationExtension extends CompilerExtension
 {

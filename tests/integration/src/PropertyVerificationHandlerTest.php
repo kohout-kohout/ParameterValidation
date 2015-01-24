@@ -10,7 +10,7 @@ use Tests\Integration\Classes\ArticleEntity;
 use Tests\Integration\Classes\ArticlePresenter;
 
 /**
- * @author Jáchym Toušek
+ * @author Jáchym Toušek <enumag@gmail.com>
  */
 class ParameterValidationHandlerTest extends Test
 {
