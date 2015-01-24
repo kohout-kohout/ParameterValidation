@@ -1,9 +1,11 @@
 extensions:
-	Kdyby.Annotations: Kdyby\Annotations\DI\AnnotationsExtension
-	Kdyby.Translation: Kdyby\Translation\DI\TranslationExtension
-	Kdyby.Validator: Kdyby\Validator\DI\ValidatorExtension
-	Arachne.Verifier: Arachne\Verifier\DI\VerifierExtension
-	Arachne.ParameterValidation: Arachne\ParameterValidation\DI\ParameterValidationExtension
+	nette: Nette\Bridges\Framework\NetteExtension
+	kdyby.annotations: Kdyby\Annotations\DI\AnnotationsExtension
+	kdyby.translation: Kdyby\Translation\DI\TranslationExtension
+	kdyby.validator: Kdyby\Validator\DI\ValidatorExtension
+	arachne.dihelpers: Arachne\DIHelpers\DI\DIHelpersExtension
+	arachne.verifier: Arachne\Verifier\DI\VerifierExtension
+	arachne.parametervalidation: Arachne\ParameterValidation\DI\ParameterValidationExtension
 
 nette:
 	application:

@@ -11,20 +11,15 @@
 	],
 	"require": {
 		"php": ">=5.3.0",
-		"nette/di": "~2.2",
-		"symfony/property-access": "~2.4",
+		"arachne/verifier": "~0.4",
 		"kdyby/validator": "dev-master",
-		"arachne/verifier": "~0.4"
+		"nette/di": "~2.2",
+		"symfony/property-access": "~2.4"
 	},
 	"require-dev": {
 		"php": ">=5.5.0",
-		"nette/nette": "~2.2",
-		"squizlabs/php_codesniffer": "~1.4",
-		"mockery/mockery": "~0.9",
-		"codeception/codeception": "~2.0",
-		"codeception/mockery-module": "~0.2",
-		"arachne/coding-style": "~0.2",
-		"arachne/codeception": "~0.3"
+		"arachne/devtools": "~0.1",
+		"nette/nette": "~2.2"
 	},
 	"autoload": {
 		"psr-4": {

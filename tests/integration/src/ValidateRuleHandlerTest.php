@@ -2,6 +2,7 @@
 
 namespace Tests\Integration;
 
+use Arachne\Codeception\ConfigFilesInterface;
 use Arachne\Verifier\Verifier;
 use Codeception\TestCase\Test;
 use Nette\Application\Request;
@@ -12,15 +13,21 @@ use Tests\Integration\Classes\ArticlePresenter;
 /**
  * @author Jáchym Toušek <enumag@gmail.com>
  */
-class ValidateRuleHandlerTest extends Test
+class ValidateRuleHandlerTest extends Test implements ConfigFilesInterface
 {
 
 	/** @var Verifier */
 	private $verifier;
 
+	public function getConfigFiles()
+	{
+		return [
+			'config/config.neon',
+		];
+	}
+
 	public function _before()
 	{
-		parent::_before();
 		$this->verifier = $this->guy->grabService(Verifier::class);
 	}
 
