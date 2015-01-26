@@ -25,9 +25,9 @@ class ParameterValidationExtension extends CompilerExtension
 
 		$builder->addDefinition($this->prefix('handler'))
 			->setClass('Arachne\ParameterValidation\Rules\ValidateRuleHandler')
-			->addTag(VerifierExtension::TAG_HANDLER, array(
+			->addTag(VerifierExtension::TAG_HANDLER, [
 				'Arachne\ParameterValidation\Rules\Validate',
-			));
+			]);
 	}
 
 }

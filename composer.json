@@ -10,7 +10,7 @@
 		}
 	],
 	"require": {
-		"php": ">=5.3.0",
+		"php": ">=5.4.0",
 		"arachne/verifier": "~0.4",
 		"kdyby/validator": "dev-master",
 		"nette/di": "~2.2",
