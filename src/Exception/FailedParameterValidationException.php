@@ -57,7 +57,7 @@ class FailedParameterValidationException extends ForbiddenRequestException
 	}
 
 	/**
-	 * @return mixed
+	 * @return ConstraintViolationListInterface
 	 */
 	public function getViolations()
 	{
