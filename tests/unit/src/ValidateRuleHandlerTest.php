@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ValidateRuleHandlerTest extends Test
 {
 
-	/** @var ParameterValidationHandler */
+	/** @var ValidateRuleHandler */
 	private $handler;
 
 	/** @var MockInterface */
@@ -68,7 +68,7 @@ class ValidateRuleHandlerTest extends Test
 	}
 
 	/**
-	 * @expectedException Arachne\ParameterValidation\Exception\FailedParameterValidationException
+	 * @expectedException Arachne\ParameterValidation\Exception\ParameterValidationException
 	 * @expectedExceptionMessage Parameter 'parameter' does not match the constraints.
 	 */
 	public function testParameterFalse()
@@ -142,7 +142,7 @@ class ValidateRuleHandlerTest extends Test
 	}
 
 	/**
-	 * @expectedException Arachne\ParameterValidation\Exception\FailedParameterValidationException
+	 * @expectedException Arachne\ParameterValidation\Exception\ParameterValidationException
 	 * @expectedExceptionMessage Parameter 'parameter.property' does not match the constraints.
 	 */
 	public function testPropertyFalse()
@@ -186,7 +186,7 @@ class ValidateRuleHandlerTest extends Test
 	}
 
 	/**
-	 * @expectedException Arachne\ParameterValidation\Exception\FailedParameterValidationException
+	 * @expectedException Arachne\ParameterValidation\Exception\ParameterValidationException
 	 * @expectedExceptionMessage Parameter 'component-parameter.property' does not match the constraints.
 	 */
 	public function testPropertyComponent()

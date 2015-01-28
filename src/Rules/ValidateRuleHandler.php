@@ -10,7 +10,7 @@
 
 namespace Arachne\ParameterValidation\Rules;
 
-use Arachne\ParameterValidation\Exception\FailedParameterValidationException;
+use Arachne\ParameterValidation\Exception\ParameterValidationException;
 use Arachne\ParameterValidation\Exception\InvalidArgumentException;
 use Arachne\Verifier\RuleHandlerInterface;
 use Arachne\Verifier\RuleInterface;
@@ -55,8 +55,7 @@ class ValidateRuleHandler extends Object implements RuleHandlerInterface
 		$violations = $this->validator->validate($value, $rule->constraints);
 		if ($violations->count()) {
 			$message = "Parameter '$parameter' does not match the constraints.";
-			$exception = new FailedParameterValidationException($message);
-			$exception->setRule($rule);
+			$exception = new ParameterValidationException($rule, $message);
 			$exception->setComponent($component);
 			$exception->setValue($value);
 			$exception->setViolations($violations);

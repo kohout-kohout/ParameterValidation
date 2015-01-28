@@ -10,8 +10,7 @@
 
 namespace Arachne\ParameterValidation\Rules;
 
-use Arachne\Verifier\RuleInterface;
-use Nette\Object;
+use Arachne\Verifier\Rules\ValidationRule;
 
 /**
  * @author Jáchym Toušek <enumag@gmail.com>
@@ -19,7 +18,7 @@ use Nette\Object;
  * @Annotation
  * @Target({"CLASS", "METHOD", "ANNOTATION"})
  */
-class Validate extends Object implements RuleInterface
+class Validate extends ValidationRule
 {
 
 	/** @var string */

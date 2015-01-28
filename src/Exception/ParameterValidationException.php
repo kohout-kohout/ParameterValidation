@@ -10,18 +10,14 @@
 
 namespace Arachne\ParameterValidation\Exception;
 
-use Arachne\ParameterValidation\Rules\Validate;
-use Nette\Application\ForbiddenRequestException;
+use Arachne\Verifier\Exception\VerificationException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  * @author Jáchym Toušek <enumag@gmail.com>
  */
-class FailedParameterValidationException extends ForbiddenRequestException
+class ParameterValidationException extends VerificationException
 {
-
-	/** @var Validate */
-	private $rule;
 
 	/** @var string */
 	private $component;
@@ -31,14 +27,6 @@ class FailedParameterValidationException extends ForbiddenRequestException
 
 	/** @var ConstraintViolationListInterface */
 	private $violations;
-
-	/**
-	 * @return Validate
-	 */
-	public function getRule()
-	{
-		return $this->rule;
-	}
 
 	/**
 	 * @return string
@@ -62,14 +50,6 @@ class FailedParameterValidationException extends ForbiddenRequestException
 	public function getViolations()
 	{
 		return $this->violations;
-	}
-
-	/**
-	 * @param Validate $rule
-	 */
-	public function setRule(Validate $rule)
-	{
-		$this->rule = $rule;
 	}
 
 	/**

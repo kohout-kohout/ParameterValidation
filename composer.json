@@ -11,7 +11,7 @@
 	],
 	"require": {
 		"php": ">=5.4.0",
-		"arachne/verifier": "~0.4",
+		"arachne/verifier": "~0.7.0",
 		"kdyby/validator": "dev-master",
 		"nette/di": "~2.2",
 		"symfony/property-access": "~2.4"
