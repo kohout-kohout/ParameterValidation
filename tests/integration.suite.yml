@@ -4,8 +4,4 @@ class_name: IntegrationSuiteGuy
 
 modules:
     enabled:
-        - Nette
-    config:
-        Nette:
-            configFiles:
-                - tests/integration/config/config.neon
+        - Arachne\Codeception\Module\Nette
