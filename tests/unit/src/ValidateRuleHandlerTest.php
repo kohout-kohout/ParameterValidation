@@ -104,7 +104,7 @@ class ValidateRuleHandlerTest extends Test
 			$this->handler->checkRule($rule, $request);
 		} catch (FailedParameterValidationException $e) {
 			$this->assertSame($rule, $e->getRule());
-			$this->assertSame(NULL, $e->getComponent());
+			$this->assertSame(null, $e->getComponent());
 			$this->assertSame('wrong-parameter-value', $e->getValue());
 			$this->assertSame($violations, $e->getViolations());
 			throw $e;
@@ -178,7 +178,7 @@ class ValidateRuleHandlerTest extends Test
 			$this->handler->checkRule($rule, $request);
 		} catch (FailedParameterValidationException $e) {
 			$this->assertSame($rule, $e->getRule());
-			$this->assertSame(NULL, $e->getComponent());
+			$this->assertSame(null, $e->getComponent());
 			$this->assertSame('wrong-property-value', $e->getValue());
 			$this->assertSame($violations, $e->getViolations());
 			throw $e;

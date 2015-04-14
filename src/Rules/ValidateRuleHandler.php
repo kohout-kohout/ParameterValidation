@@ -32,7 +32,7 @@ class ValidateRuleHandler extends Object implements RuleHandlerInterface
 	/** @var PropertyAccessorInterface */
 	private $propertyAccessor;
 
-	public function __construct(ValidatorInterface $validator, PropertyAccessorInterface $propertyAccessor = NULL)
+	public function __construct(ValidatorInterface $validator, PropertyAccessorInterface $propertyAccessor = null)
 	{
 		$this->validator = $validator;
 		$this->propertyAccessor = $propertyAccessor ?: PropertyAccess::createPropertyAccessor();
@@ -43,14 +43,14 @@ class ValidateRuleHandler extends Object implements RuleHandlerInterface
 	 * @param Request $request
 	 * @throws FailedAuthenticationException
 	 */
-	public function checkRule(RuleInterface $rule, Request $request, $component = NULL)
+	public function checkRule(RuleInterface $rule, Request $request, $component = null)
 	{
 		if (!$rule instanceof Validate) {
 			throw new InvalidArgumentException('Unknown rule \'' . get_class($rule) . '\' given.');
 		}
 
 		$parameters = $request->getParameters();
-		$parameter = $component === NULL ? $rule->parameter : $component . '-' . $rule->parameter;
+		$parameter = $component === null ? $rule->parameter : $component . '-' . $rule->parameter;
 		$value = $this->propertyAccessor->getValue((object) $parameters, $parameter);
 		$violations = $this->validator->validate($value, $rule->constraints);
 		if ($violations->count()) {
