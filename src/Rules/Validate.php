@@ -16,7 +16,6 @@ use Arachne\Verifier\Rules\ValidationRule;
  * @author Jáchym Toušek <enumag@gmail.com>
  *
  * @Annotation
- * @Target({"CLASS", "METHOD", "ANNOTATION"})
  */
 class Validate extends ValidationRule
 {
