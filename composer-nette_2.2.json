@@ -1,15 +1,4 @@
 {
-	"name": "arachne/parameter-validation",
-	"type": "library",
-	"keywords": [ "nette", "arachne", "security" ],
-	"homepage": "http://enumag.cz",
-	"authors": [
-		{
-			"name": "Jáchym Toušek",
-			"homepage": "http://enumag.cz",
-			"email": "enumag@gmail.com"
-		}
-	],
 	"require": {
 		"php": ">=5.4.0",
 		"arachne/verifier": "~0.7.0|~0.8.0",
