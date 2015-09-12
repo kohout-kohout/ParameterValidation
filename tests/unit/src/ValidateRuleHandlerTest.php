@@ -51,13 +51,7 @@ class ValidateRuleHandlerTest extends Test
 		];
 		$request = new Request('Test', 'GET', $parameters);
 
-		$this->accessor
-			->shouldReceive('getValue')
-			->with(Mockery::on(function ($parameter) use ($parameters) {
-				return $parameter == (object) $parameters;
-			}), 'parameter')
-			->once()
-			->andReturn('parameter-value');
+		$this->setupAccessor($parameters, 'parameter', 'parameter-value');
 
 		$this->validator
 			->shouldReceive('validate')
@@ -85,13 +79,7 @@ class ValidateRuleHandlerTest extends Test
 		];
 		$request = new Request('Test', 'GET', $parameters);
 
-		$this->accessor
-			->shouldReceive('getValue')
-			->with(Mockery::on(function ($parameter) use ($parameters) {
-				return $parameter == (object) $parameters;
-			}), 'parameter')
-			->once()
-			->andReturn('wrong-parameter-value');
+		$this->setupAccessor($parameters, 'parameter', 'wrong-parameter-value');
 
 		$violations = $this->createViolationsMock(1);
 
@@ -125,13 +113,7 @@ class ValidateRuleHandlerTest extends Test
 		];
 		$request = new Request('Test', 'GET', $parameters);
 
-		$this->accessor
-			->shouldReceive('getValue')
-			->with(Mockery::on(function ($parameter) use ($parameters) {
-				return $parameter == (object) $parameters;
-			}), 'parameter.property')
-			->once()
-			->andReturn('property-value');
+		$this->setupAccessor($parameters, 'parameter.property', 'property-value');
 
 		$this->validator
 			->shouldReceive('validate')
@@ -159,13 +141,7 @@ class ValidateRuleHandlerTest extends Test
 		];
 		$request = new Request('Test', 'GET', $parameters);
 
-		$this->accessor
-			->shouldReceive('getValue')
-			->with(Mockery::on(function ($parameter) use ($parameters) {
-				return $parameter == (object) $parameters;
-			}), 'parameter.property')
-			->once()
-			->andReturn('wrong-property-value');
+		$this->setupAccessor($parameters, 'parameter.property', 'wrong-property-value');
 
 		$violations = $this->createViolationsMock(1);
 
@@ -203,13 +179,7 @@ class ValidateRuleHandlerTest extends Test
 		];
 		$request = new Request('Test', 'GET', $parameters);
 
-		$this->accessor
-			->shouldReceive('getValue')
-			->with(Mockery::on(function ($parameter) use ($parameters) {
-				return $parameter == (object) $parameters;
-			}), 'component-parameter.property')
-			->once()
-			->andReturn('wrong-property-value');
+		$this->setupAccessor($parameters, 'component-parameter.property', 'wrong-property-value');
 
 		$violations = $this->createViolationsMock(1);
 
@@ -241,18 +211,34 @@ class ValidateRuleHandlerTest extends Test
 	}
 
 	/**
-	 * @param int $count
+	 * @param int $return
 	 * @return MockInterface
 	 */
-	private function createViolationsMock($count = 0)
+	private function createViolationsMock($return = 0)
 	{
 		$violations = Mockery::mock(ConstraintViolationListInterface::class);
 		$violations
 			->shouldReceive('count')
 			->once()
 			->withNoArgs()
-			->andReturn($count);
+			->andReturn($return);
 		return $violations;
+	}
+
+	/**
+	 * @param array $parameters
+	 * @param string $property
+	 * @param string $return
+	 */
+	private function setupAccessor(array $parameters, $property, $return)
+	{
+		$this->accessor
+			->shouldReceive('getValue')
+			->with(Mockery::on(function ($parameter) use ($parameters) {
+				return $parameter == (object) $parameters;
+			}), $property)
+			->once()
+			->andReturn($return);
 	}
 
 }
