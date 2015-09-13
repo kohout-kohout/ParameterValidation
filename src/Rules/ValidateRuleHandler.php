@@ -49,9 +49,9 @@ class ValidateRuleHandler extends Object implements RuleHandlerInterface
 			throw new InvalidArgumentException('Unknown rule \'' . get_class($rule) . '\' given.');
 		}
 
-		$parameters = $request->getParameters();
+		$parameters = (object) $request->getParameters();
 		$parameter = $component === null ? $rule->parameter : $component . '-' . $rule->parameter;
-		$value = $this->propertyAccessor->getValue((object) $parameters, $parameter);
+		$value = $this->propertyAccessor->isReadable($parameters, $parameter) ? $this->propertyAccessor->getValue($parameters, $parameter) : null;
 		$violations = $this->validator->validate($value, $rule->constraints);
 		if ($violations->count()) {
 			$message = "Parameter '$parameter' does not match the constraints.";

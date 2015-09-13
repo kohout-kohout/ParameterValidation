@@ -199,6 +199,34 @@ class ValidateRuleHandlerTest extends Test
 		}
 	}
 
+	public function testMissingParameter()
+	{
+		$rule = new Validate();
+		$rule->parameter = 'parameter';
+
+		$constraint = new EqualTo();
+		$constraint->value = null;
+		$rule->constraints = $constraint;
+
+		$parameters = [];
+		$request = new Request('Test', 'GET', $parameters);
+
+		$this->accessor
+			->shouldReceive('isReadable')
+			->with(Mockery::on(function ($parameter) use ($parameters) {
+				return $parameter == (object) $parameters;
+			}), 'parameter')
+			->once()
+			->andReturn(false);
+
+		$this->validator
+			->shouldReceive('validate')
+			->with(null, $constraint)
+			->andReturn($this->createViolationsMock());
+
+		$this->assertNull($this->handler->checkRule($rule, $request));
+	}
+
 	/**
 	 * @expectedException Arachne\ParameterValidation\Exception\InvalidArgumentException
 	 */
@@ -232,6 +260,14 @@ class ValidateRuleHandlerTest extends Test
 	 */
 	private function setupAccessor(array $parameters, $property, $return)
 	{
+		$this->accessor
+			->shouldReceive('isReadable')
+			->with(Mockery::on(function ($parameter) use ($parameters) {
+				return $parameter == (object) $parameters;
+			}), $property)
+			->once()
+			->andReturn(true);
+
 		$this->accessor
 			->shouldReceive('getValue')
 			->with(Mockery::on(function ($parameter) use ($parameters) {
