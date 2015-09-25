@@ -6,7 +6,7 @@ use Arachne\ParameterValidation\Exception\FailedParameterValidationException;
 use Arachne\ParameterValidation\Rules\Validate;
 use Arachne\ParameterValidation\Rules\ValidateRuleHandler;
 use Arachne\Verifier\RuleInterface;
-use Codeception\TestCase\Test;
+use Codeception\MockeryModule\Test;
 use Mockery;
 use Mockery\MockInterface;
 use Nette\Application\Request;
