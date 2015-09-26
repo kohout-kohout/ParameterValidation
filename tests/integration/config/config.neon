@@ -1,15 +1,16 @@
 common:
 	extensions:
+		arachne.dihelpers.iterators: Arachne\DIHelpers\DI\IteratorsExtension
+		arachne.dihelpers.resolvers: Arachne\DIHelpers\DI\ResolversExtension
 		kdyby.annotations: Kdyby\Annotations\DI\AnnotationsExtension
+		kdyby.translation: Kdyby\Translation\DI\TranslationExtension
 		kdyby.validator: Kdyby\Validator\DI\ValidatorExtension
-		arachne.dihelpers: Arachne\DIHelpers\DI\DIHelpersExtension
 		arachne.verifier: Arachne\Verifier\DI\VerifierExtension
 		arachne.parametervalidation: Arachne\ParameterValidation\DI\ParameterValidationExtension
 
 nette_2.2 < common:
 	extensions:
 		nette: Nette\Bridges\Framework\NetteExtension
-		kdyby.translation: Kdyby\Translation\DI\TranslationExtension
 
 	nette:
 		application:
@@ -18,16 +19,12 @@ nette_2.2 < common:
 
 nette_2.3 < common:
 	extensions:
-		# TODO when https://github.com/Kdyby/Translation/pull/71 is merged:
-		#     - rename application => nette.application
-		#     - put kdyby.translation in common secion
-		application: Nette\Bridges\ApplicationDI\ApplicationExtension
+		nette.application: Nette\Bridges\ApplicationDI\ApplicationExtension
 		nette.cache: Nette\Bridges\CacheDI\CacheExtension( %tempDir% )
 		nette.http: Nette\Bridges\HttpDI\HttpExtension
 		nette.session: Nette\Bridges\HttpDI\SessionExtension
 		nette.routing: Nette\Bridges\ApplicationDI\RoutingExtension
-		kdyby.translation: Kdyby\Translation\DI\TranslationExtension
 
-	application:
+	nette.application:
 		mapping:
 			*: Tests\Integration\Classes\*Presenter
