@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use Arachne\ParameterValidation\Exception\FailedParameterValidationException;
+use Arachne\ParameterValidation\Exception\ParameterValidationException;
 use Arachne\ParameterValidation\Rules\Validate;
 use Arachne\ParameterValidation\Rules\ValidateRuleHandler;
 use Arachne\Verifier\RuleInterface;
@@ -90,7 +90,7 @@ class ValidateRuleHandlerTest extends Test
 
 		try {
 			$this->handler->checkRule($rule, $request);
-		} catch (FailedParameterValidationException $e) {
+		} catch (ParameterValidationException $e) {
 			$this->assertSame($rule, $e->getRule());
 			$this->assertSame(null, $e->getComponent());
 			$this->assertSame('wrong-parameter-value', $e->getValue());
@@ -152,7 +152,7 @@ class ValidateRuleHandlerTest extends Test
 
 		try {
 			$this->handler->checkRule($rule, $request);
-		} catch (FailedParameterValidationException $e) {
+		} catch (ParameterValidationException $e) {
 			$this->assertSame($rule, $e->getRule());
 			$this->assertSame(null, $e->getComponent());
 			$this->assertSame('wrong-property-value', $e->getValue());
@@ -190,7 +190,7 @@ class ValidateRuleHandlerTest extends Test
 
 		try {
 			$this->handler->checkRule($rule, $request, 'component');
-		} catch (FailedParameterValidationException $e) {
+		} catch (ParameterValidationException $e) {
 			$this->assertSame($rule, $e->getRule());
 			$this->assertSame('component', $e->getComponent());
 			$this->assertSame('wrong-property-value', $e->getValue());
@@ -275,6 +275,43 @@ class ValidateRuleHandlerTest extends Test
 			}), $property)
 			->once()
 			->andReturn($return);
+	}
+
+	/**
+	 * @expectedException Arachne\ParameterValidation\Exception\ParameterValidationException
+	 * @expectedExceptionMessage Parameters do not match the constraints.
+	 */
+	public function testNoParameterException()
+	{
+		$rule = new Validate();
+
+		$constraint = new EqualTo();
+		$constraint->value = 'value';
+		$rule->constraints = $constraint;
+
+		$parameters = [
+			'parameter' => 'parameter-value',
+		];
+		$request = new Request('Test', 'GET', $parameters);
+
+		$violations = $this->createViolationsMock(1);
+
+		$this->validator
+			->shouldReceive('validate')
+			->with(Mockery::on(function ($parameter) use ($parameters) {
+				return $parameter == (object) $parameters;
+			}), $constraint)
+			->andReturn($violations);
+
+		try {
+			$this->handler->checkRule($rule, $request);
+		} catch (ParameterValidationException $e) {
+			$this->assertSame($rule, $e->getRule());
+			$this->assertSame(null, $e->getComponent());
+			$this->assertEquals((object) $parameters, $e->getValue());
+			$this->assertSame($violations, $e->getViolations());
+			throw $e;
+		}
 	}
 
 }

@@ -41,6 +41,7 @@ class ValidateRuleHandler extends Object implements RuleHandlerInterface
 	/**
 	 * @param RuleInterface $rule
 	 * @param Request $request
+	 * @param string $component
 	 * @throws FailedAuthenticationException
 	 */
 	public function checkRule(RuleInterface $rule, Request $request, $component = null)
@@ -49,12 +50,29 @@ class ValidateRuleHandler extends Object implements RuleHandlerInterface
 			throw new InvalidArgumentException('Unknown rule \'' . get_class($rule) . '\' given.');
 		}
 
-		$parameters = (object) $request->getParameters();
-		$parameter = $component === null ? $rule->parameter : $component . '-' . $rule->parameter;
-		$value = $this->propertyAccessor->isReadable($parameters, $parameter) ? $this->propertyAccessor->getValue($parameters, $parameter) : null;
+		if ($rule->parameter) {
+			$parameters = (object) $request->getParameters();
+			$parameter = $component ? $component . '-' . $rule->parameter : $rule->parameter;
+			$value = $this->propertyAccessor->isReadable($parameters, $parameter) ? $this->propertyAccessor->getValue($parameters, $parameter) : null;
+		} elseif ($component) {
+			$value = [];
+			$prefixLength = strlen($component) + 1;
+			foreach ($request->getParameters() as $key => $val) {
+				if (substr($key, 0, $prefixLength) === $component . '-') {
+					$value[substr($key, $prefixLength)] = $val;
+				}
+			}
+			$value = (object) $value;
+		} else {
+			$value = (object) $request->getParameters();
+		}
 		$violations = $this->validator->validate($value, $rule->constraints);
 		if ($violations->count()) {
-			$message = "Parameter '$parameter' does not match the constraints.";
+			if ($rule->parameter) {
+				$message = "Parameter '$parameter' does not match the constraints.";
+			} else {
+				$message = "Parameters do not match the constraints.";
+			}
 			$exception = new ParameterValidationException($rule, $message);
 			$exception->setComponent($component);
 			$exception->setValue($value);

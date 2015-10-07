@@ -79,4 +79,50 @@ class ValidateRuleHandlerTest extends Test
 		$this->assertFalse($this->verifier->isLinkVerified($request, (new ArticlePresenter())->getComponent('article')));
 	}
 
+	public function testExpressionAllowed()
+	{
+		$request = new Request('Article', 'GET', [
+			Presenter::ACTION_KEY => 'expression',
+			'from' => 1,
+			'to' => 2,
+		]);
+
+		$this->assertTrue($this->verifier->isLinkVerified($request, new ArticlePresenter()));
+	}
+
+	public function testExpressionDisallowed()
+	{
+		$request = new Request('Article', 'GET', [
+			Presenter::ACTION_KEY => 'expression',
+			'from' => 2,
+			'to' => 1,
+		]);
+
+		$this->assertFalse($this->verifier->isLinkVerified($request, new ArticlePresenter()));
+	}
+
+	public function testComponentExpressionAllowed()
+	{
+		$request = new Request('Article', 'GET', [
+			Presenter::ACTION_KEY => 'default',
+			Presenter::SIGNAL_KEY => 'article-expression',
+			'article-from' => 1,
+			'article-to' => 2,
+		]);
+
+		$this->assertTrue($this->verifier->isLinkVerified($request, (new ArticlePresenter())->getComponent('article')));
+	}
+
+	public function testComponentExpressionDisallowed()
+	{
+		$request = new Request('Article', 'GET', [
+			Presenter::ACTION_KEY => 'default',
+			Presenter::SIGNAL_KEY => 'article-expression',
+			'article-from' => 2,
+			'article-to' => 1,
+		]);
+
+		$this->assertFalse($this->verifier->isLinkVerified($request, (new ArticlePresenter())->getComponent('article')));
+	}
+
 }

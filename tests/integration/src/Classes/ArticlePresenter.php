@@ -6,6 +6,7 @@ use Arachne\ParameterValidation\Rules\Validate;
 use Arachne\Verifier\Rules\All;
 use Nette\Application\UI\Presenter;
 use Symfony\Component\Validator\Constraints\EqualTo;
+use Symfony\Component\Validator\Constraints\Expression;
 
 /**
  * @author Jáchym Toušek <enumag@gmail.com>
@@ -27,6 +28,13 @@ class ArticlePresenter extends Presenter
 	 * })
 	 */
 	public function actionInnerRules($id)
+	{
+	}
+
+	/**
+	 * @Validate(constraints = @Expression("value.from < value.to"))
+	 */
+	public function actionExpression($from, $to)
 	{
 	}
 
