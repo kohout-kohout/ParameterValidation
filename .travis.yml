@@ -1,0 +1,34 @@
+language: php
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+php:
+    - 5.6
+    - 7.0
+    - 7.1
+    - nightly
+    - hhvm
+
+matrix:
+    allow_failures:
+        - php: nightly
+        - php: hhvm
+
+install:
+    - if php -v | grep -q 'PHP 7'; then composer tools; fi
+    - composer global require satooshi/php-coveralls ^1.0.0
+    - composer update --no-interaction
+
+before_script:
+    - if php -v | grep -q 'Xdebug'; then coverage="--coverage-xml"; fi
+    - vendor/bin/codecept build
+
+script:
+    - if php -v | grep -q 'PHP 7'; then vendor-tools/bin/php-cs-fixer fix --dry-run; fi
+    - if php -v | grep -q 'PHP 7'; then vendor-tools/bin/phpstan analyse --level=4 --configuration=phpstan.neon src tests; fi
+    - vendor/bin/codecept run $coverage
+
+after_success:
+    - if [[ ! -z $coverage ]]; then coveralls; fi
