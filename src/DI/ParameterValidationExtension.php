@@ -2,6 +2,8 @@
 
 namespace Arachne\ParameterValidation\DI;
 
+use Arachne\ParameterValidation\Rules\Validate;
+use Arachne\ParameterValidation\Rules\ValidateRuleHandler;
 use Arachne\Verifier\DI\VerifierExtension;
 use Nette\DI\CompilerExtension;
 
@@ -15,9 +17,12 @@ class ParameterValidationExtension extends CompilerExtension
         $builder = $this->getContainerBuilder();
 
         $builder->addDefinition($this->prefix('handler'))
-            ->setClass('Arachne\ParameterValidation\Rules\ValidateRuleHandler')
-            ->addTag(VerifierExtension::TAG_HANDLER, [
-                'Arachne\ParameterValidation\Rules\Validate',
-            ]);
+            ->setClass(ValidateRuleHandler::class)
+            ->addTag(
+                VerifierExtension::TAG_HANDLER,
+                [
+                    Validate::class,
+                ]
+            );
     }
 }
