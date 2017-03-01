@@ -92,7 +92,7 @@ class ValidateRuleHandlerTest extends Unit
 
         try {
             $this->handler->checkRule($rule, $request);
-            $this->fail();
+            self::fail();
         } catch (ParameterValidationException $e) {
             self::assertSame('Parameter "parameter" does not match the constraints.', $e->getMessage());
             self::assertSame($rule, $e->getRule());
@@ -151,7 +151,7 @@ class ValidateRuleHandlerTest extends Unit
 
         try {
             $this->handler->checkRule($rule, $request);
-            $this->fail();
+            self::fail();
         } catch (ParameterValidationException $e) {
             self::assertSame('Parameter "parameter.property" does not match the constraints.', $e->getMessage());
             self::assertSame($rule, $e->getRule());
@@ -186,7 +186,7 @@ class ValidateRuleHandlerTest extends Unit
 
         try {
             $this->handler->checkRule($rule, $request, 'component');
-            $this->fail();
+            self::fail();
         } catch (ParameterValidationException $e) {
             self::assertSame('Parameter "component-parameter.property" does not match the constraints.', $e->getMessage());
             self::assertSame($rule, $e->getRule());
@@ -229,8 +229,9 @@ class ValidateRuleHandlerTest extends Unit
 
         try {
             $this->handler->checkRule($rule, $request);
-            $this->fail();
-        } catch (InvalidArgumentException $e) {}
+            self::fail();
+        } catch (InvalidArgumentException $e) {
+        }
     }
 
     /**
@@ -288,7 +289,7 @@ class ValidateRuleHandlerTest extends Unit
 
         try {
             $this->handler->checkRule($rule, $request);
-            $this->fail();
+            self::fail();
         } catch (ParameterValidationException $e) {
             self::assertSame('Parameters do not match the constraints.', $e->getMessage());
             self::assertSame($rule, $e->getRule());
