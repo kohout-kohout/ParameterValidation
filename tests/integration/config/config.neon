@@ -4,12 +4,12 @@ extensions:
     nette.http: Nette\Bridges\HttpDI\HttpExtension
     nette.session: Nette\Bridges\HttpDI\SessionExtension
     nette.routing: Nette\Bridges\ApplicationDI\RoutingExtension
-    arachne.servicecollections: Arachne\ServiceCollections\DI\ServiceCollectionsExtension
+    arachne.serviceCollections: Arachne\ServiceCollections\DI\ServiceCollectionsExtension
     kdyby.annotations: Kdyby\Annotations\DI\AnnotationsExtension
     kdyby.translation: Kdyby\Translation\DI\TranslationExtension
     kdyby.validator: Kdyby\Validator\DI\ValidatorExtension
     arachne.verifier: Arachne\Verifier\DI\VerifierExtension
-    arachne.parametervalidation: Arachne\ParameterValidation\DI\ParameterValidationExtension
+    arachne.parameterValidation: Arachne\ParameterValidation\DI\ParameterValidationExtension
 
 nette.application:
     mapping:
