@@ -20,7 +20,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class ValidateRuleHandlerTest extends Test
 {
-
     /**
      * @var ValidateRuleHandler
      */
@@ -68,7 +67,7 @@ class ValidateRuleHandlerTest extends Test
     }
 
     /**
-     * @expectedException Arachne\ParameterValidation\Exception\ParameterValidationException
+     * @expectedException \Arachne\ParameterValidation\Exception\ParameterValidationException
      * @expectedExceptionMessage Parameter 'parameter' does not match the constraints.
      */
     public function testParameterFalse()
@@ -130,7 +129,7 @@ class ValidateRuleHandlerTest extends Test
     }
 
     /**
-     * @expectedException Arachne\ParameterValidation\Exception\ParameterValidationException
+     * @expectedException \Arachne\ParameterValidation\Exception\ParameterValidationException
      * @expectedExceptionMessage Parameter 'parameter.property' does not match the constraints.
      */
     public function testPropertyFalse()
@@ -168,7 +167,7 @@ class ValidateRuleHandlerTest extends Test
     }
 
     /**
-     * @expectedException Arachne\ParameterValidation\Exception\ParameterValidationException
+     * @expectedException \Arachne\ParameterValidation\Exception\ParameterValidationException
      * @expectedExceptionMessage Parameter 'component-parameter.property' does not match the constraints.
      */
     public function testPropertyComponent()
@@ -181,7 +180,7 @@ class ValidateRuleHandlerTest extends Test
         $rule->constraints = $constraint;
 
         $parameters = [
-            'component-parameter' => 'parameter-value'
+            'component-parameter' => 'parameter-value',
         ];
         $request = new Request('Test', 'GET', $parameters);
 
@@ -234,7 +233,7 @@ class ValidateRuleHandlerTest extends Test
     }
 
     /**
-     * @expectedException Arachne\ParameterValidation\Exception\InvalidArgumentException
+     * @expectedException \Arachne\ParameterValidation\Exception\InvalidArgumentException
      */
     public function testUnknownAnnotation()
     {
@@ -246,6 +245,7 @@ class ValidateRuleHandlerTest extends Test
 
     /**
      * @param int $return
+     *
      * @return MockInterface
      */
     private function createViolationsMock($return = 0)
@@ -256,11 +256,12 @@ class ValidateRuleHandlerTest extends Test
             ->once()
             ->withNoArgs()
             ->andReturn($return);
+
         return $violations;
     }
 
     /**
-     * @param array $parameters
+     * @param array  $parameters
      * @param string $property
      * @param string $return
      */
@@ -284,7 +285,7 @@ class ValidateRuleHandlerTest extends Test
     }
 
     /**
-     * @expectedException Arachne\ParameterValidation\Exception\ParameterValidationException
+     * @expectedException \Arachne\ParameterValidation\Exception\ParameterValidationException
      * @expectedExceptionMessage Parameters do not match the constraints.
      */
     public function testNoParameterException()
@@ -319,5 +320,4 @@ class ValidateRuleHandlerTest extends Test
             throw $e;
         }
     }
-
 }

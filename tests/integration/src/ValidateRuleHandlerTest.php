@@ -14,7 +14,6 @@ use Tests\Integration\Classes\ArticlePresenter;
  */
 class ValidateRuleHandlerTest extends Test
 {
-
     /**
      * @var Verifier
      */
@@ -126,5 +125,4 @@ class ValidateRuleHandlerTest extends Test
 
         $this->assertFalse($this->verifier->isLinkVerified($request, (new ArticlePresenter())->getComponent('article')));
     }
-
 }

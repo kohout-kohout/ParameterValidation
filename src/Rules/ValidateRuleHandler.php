@@ -2,8 +2,8 @@
 
 namespace Arachne\ParameterValidation\Rules;
 
-use Arachne\ParameterValidation\Exception\ParameterValidationException;
 use Arachne\ParameterValidation\Exception\InvalidArgumentException;
+use Arachne\ParameterValidation\Exception\ParameterValidationException;
 use Arachne\Verifier\RuleHandlerInterface;
 use Arachne\Verifier\RuleInterface;
 use Nette\Application\Request;
@@ -16,7 +16,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class ValidateRuleHandler implements RuleHandlerInterface
 {
-
     /**
      * @var ValidatorInterface
      */
@@ -35,25 +34,26 @@ class ValidateRuleHandler implements RuleHandlerInterface
 
     /**
      * @param RuleInterface $rule
-     * @param Request $request
-     * @param string $component
+     * @param Request       $request
+     * @param string        $component
+     *
      * @throws FailedAuthenticationException
      */
     public function checkRule(RuleInterface $rule, Request $request, $component = null)
     {
         if (!$rule instanceof Validate) {
-            throw new InvalidArgumentException('Unknown rule \'' . get_class($rule) . '\' given.');
+            throw new InvalidArgumentException('Unknown rule \''.get_class($rule).'\' given.');
         }
 
         if ($rule->parameter) {
             $parameters = (object) $request->getParameters();
-            $parameter = $component ? $component . '-' . $rule->parameter : $rule->parameter;
+            $parameter = $component ? $component.'-'.$rule->parameter : $rule->parameter;
             $value = $this->propertyAccessor->isReadable($parameters, $parameter) ? $this->propertyAccessor->getValue($parameters, $parameter) : null;
         } elseif ($component) {
             $value = [];
             $prefixLength = strlen($component) + 1;
             foreach ($request->getParameters() as $key => $val) {
-                if (substr($key, 0, $prefixLength) === $component . '-') {
+                if (substr($key, 0, $prefixLength) === $component.'-') {
                     $value[substr($key, $prefixLength)] = $val;
                 }
             }
@@ -66,7 +66,7 @@ class ValidateRuleHandler implements RuleHandlerInterface
             if ($rule->parameter) {
                 $message = "Parameter '$parameter' does not match the constraints.";
             } else {
-                $message = "Parameters do not match the constraints.";
+                $message = 'Parameters do not match the constraints.';
             }
             $exception = new ParameterValidationException($rule, $message);
             $exception->setComponent($component);
@@ -75,5 +75,4 @@ class ValidateRuleHandler implements RuleHandlerInterface
             throw $exception;
         }
     }
-
 }

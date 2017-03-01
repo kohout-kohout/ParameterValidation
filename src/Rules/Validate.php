@@ -11,7 +11,6 @@ use Arachne\Verifier\Rules\ValidationRule;
  */
 class Validate extends ValidationRule
 {
-
     /**
      * @var string
      */
@@ -19,9 +18,10 @@ class Validate extends ValidationRule
 
     /**
      * @todo Don't use fully qualified type.
-     * @link http://www.doctrine-project.org/jira/browse/DCOM-253
+     *
+     * @see http://www.doctrine-project.org/jira/browse/DCOM-253
+     *
      * @var \Symfony\Component\Validator\Constraint[]
      */
     public $constraints;
-
 }

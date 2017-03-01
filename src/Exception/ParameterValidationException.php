@@ -10,7 +10,6 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
  */
 class ParameterValidationException extends VerificationException
 {
-
     /**
      * @var string
      */
@@ -73,5 +72,4 @@ class ParameterValidationException extends VerificationException
     {
         $this->violations = $violations;
     }
-
 }

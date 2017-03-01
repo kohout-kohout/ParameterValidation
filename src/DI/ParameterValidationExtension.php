@@ -10,7 +10,6 @@ use Nette\DI\CompilerExtension;
  */
 class ParameterValidationExtension extends CompilerExtension
 {
-
     public function loadConfiguration()
     {
         $builder = $this->getContainerBuilder();
@@ -21,5 +20,4 @@ class ParameterValidationExtension extends CompilerExtension
                 'Arachne\ParameterValidation\Rules\Validate',
             ]);
     }
-
 }

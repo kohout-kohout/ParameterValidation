@@ -7,7 +7,6 @@ namespace Tests\Integration\Classes;
  */
 class ArticleEntity
 {
-
     private $id;
 
     public function __construct($id)
@@ -19,5 +18,4 @@ class ArticleEntity
     {
         return $this->id;
     }
-
 }

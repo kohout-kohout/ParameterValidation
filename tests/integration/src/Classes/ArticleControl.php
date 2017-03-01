@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints\Expression;
  */
 class ArticleControl extends Control
 {
-
     /**
      * @Validate(parameter = "entity.id", constraints = @EqualTo(value = 1))
      * @Validate(parameter = "id", constraints = @EqualTo(value = 2))
@@ -27,5 +26,4 @@ class ArticleControl extends Control
     public function handleExpression($from, $to)
     {
     }
-
 }

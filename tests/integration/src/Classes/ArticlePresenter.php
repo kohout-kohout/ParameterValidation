@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints\Expression;
  */
 class ArticlePresenter extends Presenter
 {
-
     /**
      * @Validate(parameter = "entity.id", constraints = @EqualTo(value = 1))
      * @Validate(parameter = "id", constraints = @EqualTo(value = 2))
@@ -42,5 +41,4 @@ class ArticlePresenter extends Presenter
     {
         return new ArticleControl();
     }
-
 }
