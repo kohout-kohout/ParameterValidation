@@ -12,7 +12,9 @@ use Arachne\Verifier\Rules\ValidationRule;
 class Validate extends ValidationRule
 {
 
-    /** @var string */
+    /**
+     * @var string
+     */
     public $parameter;
 
     /**

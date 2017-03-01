@@ -15,7 +15,9 @@ use Tests\Integration\Classes\ArticlePresenter;
 class ValidateRuleHandlerTest extends Test
 {
 
-    /** @var Verifier */
+    /**
+     * @var Verifier
+     */
     private $verifier;
 
     public function _before()

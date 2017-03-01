@@ -18,10 +18,14 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ValidateRuleHandler extends Object implements RuleHandlerInterface
 {
 
-    /** @var ValidatorInterface */
+    /**
+     * @var ValidatorInterface
+     */
     private $validator;
 
-    /** @var PropertyAccessorInterface */
+    /**
+     * @var PropertyAccessorInterface
+     */
     private $propertyAccessor;
 
     public function __construct(ValidatorInterface $validator, PropertyAccessorInterface $propertyAccessor = null)

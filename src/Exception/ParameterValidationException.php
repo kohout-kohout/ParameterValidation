@@ -11,13 +11,19 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 class ParameterValidationException extends VerificationException
 {
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $component;
 
-    /** @var mixed */
+    /**
+     * @var mixed
+     */
     private $value;
 
-    /** @var ConstraintViolationListInterface */
+    /**
+     * @var ConstraintViolationListInterface
+     */
     private $violations;
 
     /**

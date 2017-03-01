@@ -21,13 +21,19 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ValidateRuleHandlerTest extends Test
 {
 
-    /** @var ValidateRuleHandler */
+    /**
+     * @var ValidateRuleHandler
+     */
     private $handler;
 
-    /** @var MockInterface */
+    /**
+     * @var MockInterface
+     */
     private $accessor;
 
-    /** @var MockInterface */
+    /**
+     * @var MockInterface
+     */
     private $validator;
 
     protected function _before()
