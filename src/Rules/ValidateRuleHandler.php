@@ -7,7 +7,6 @@ use Arachne\ParameterValidation\Exception\InvalidArgumentException;
 use Arachne\Verifier\RuleHandlerInterface;
 use Arachne\Verifier\RuleInterface;
 use Nette\Application\Request;
-use Nette\Object;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -15,7 +14,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @author Jáchym Toušek <enumag@gmail.com>
  */
-class ValidateRuleHandler extends Object implements RuleHandlerInterface
+class ValidateRuleHandler implements RuleHandlerInterface
 {
 
     /**

@@ -2,12 +2,10 @@
 
 namespace Tests\Integration\Classes;
 
-use Nette\Object;
-
 /**
  * @author Jáchym Toušek <enumag@gmail.com>
  */
-class ArticleEntity extends Object
+class ArticleEntity
 {
 
     private $id;
