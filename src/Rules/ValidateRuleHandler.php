@@ -73,6 +73,7 @@ class ValidateRuleHandler implements RuleHandlerInterface
             $exception->setComponent($component);
             $exception->setValue($value);
             $exception->setViolations($violations);
+
             throw $exception;
         }
     }
