@@ -218,7 +218,7 @@ class ValidateRuleHandlerTest extends Unit
 
         $this->accessorHandle
             ->isReadable
-            ->with($this->createParametersMatcher($parameters), 'parameter')
+            ->with(self::equalTo((object) $parameters), 'parameter')
             ->once()
             ->returns(false);
 
@@ -265,12 +265,12 @@ class ValidateRuleHandlerTest extends Unit
     {
         $this->accessorHandle
             ->isReadable
-            ->with($this->createParametersMatcher($parameters), $property)
+            ->with(self::equalTo((object) $parameters), $property)
             ->returns(true);
 
         $this->accessorHandle
             ->getValue
-            ->with($this->createParametersMatcher($parameters), $property)
+            ->with(self::equalTo((object) $parameters), $property)
             ->returns($return);
     }
 
@@ -295,7 +295,7 @@ class ValidateRuleHandlerTest extends Unit
 
         $this->validatorHandle
             ->validate
-            ->with($this->createParametersMatcher($parameters), $constraint)
+            ->with(self::equalTo((object) $parameters), $constraint)
             ->returns($violations);
 
         try {
@@ -307,19 +307,5 @@ class ValidateRuleHandlerTest extends Unit
             $this->assertSame($violations, $e->getViolations());
             throw $e;
         }
-    }
-
-    /**
-     * @param array $parameters
-     *
-     * @return \PHPUnit_Framework_Constraint_Callback
-     */
-    private function createParametersMatcher(array $parameters)
-    {
-        return self::callback(
-            function ($parameter) use ($parameters) {
-                return $parameter == (object) $parameters;
-            }
-        );
     }
 }
