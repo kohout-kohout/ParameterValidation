@@ -3,7 +3,7 @@
 namespace Tests\Integration;
 
 use Arachne\Verifier\Verifier;
-use Codeception\TestCase\Test;
+use Codeception\Test\Unit;
 use Nette\Application\Request;
 use Nette\Application\UI\Presenter;
 use Tests\Integration\Classes\ArticleEntity;
@@ -12,8 +12,10 @@ use Tests\Integration\Classes\ArticlePresenter;
 /**
  * @author Jáchym Toušek <enumag@gmail.com>
  */
-class ValidateRuleHandlerTest extends Test
+class ValidateRuleHandlerTest extends Unit
 {
+    protected $tester;
+
     /**
      * @var Verifier
      */
@@ -21,7 +23,7 @@ class ValidateRuleHandlerTest extends Test
 
     public function _before()
     {
-        $this->verifier = $this->guy->grabService(Verifier::class);
+        $this->verifier = $this->tester->grabService(Verifier::class);
     }
 
     public function testActionEditAllowed()

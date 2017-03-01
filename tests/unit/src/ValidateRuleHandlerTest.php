@@ -6,9 +6,9 @@ use Arachne\ParameterValidation\Exception\ParameterValidationException;
 use Arachne\ParameterValidation\Rules\Validate;
 use Arachne\ParameterValidation\Rules\ValidateRuleHandler;
 use Arachne\Verifier\RuleInterface;
-use Codeception\MockeryModule\Test;
-use Mockery;
-use Mockery\MockInterface;
+use Codeception\Test\Unit;
+use Eloquent\Phony\Mock\Handle\InstanceHandle;
+use Eloquent\Phony\Phpunit\Phony;
 use Nette\Application\Request;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Validator\Constraints\EqualTo;
@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @author Jáchym Toušek <enumag@gmail.com>
  */
-class ValidateRuleHandlerTest extends Test
+class ValidateRuleHandlerTest extends Unit
 {
     /**
      * @var ValidateRuleHandler
@@ -26,20 +26,20 @@ class ValidateRuleHandlerTest extends Test
     private $handler;
 
     /**
-     * @var MockInterface
+     * @var InstanceHandle
      */
-    private $accessor;
+    private $accessorHandle;
 
     /**
-     * @var MockInterface
+     * @var InstanceHandle
      */
-    private $validator;
+    private $validatorHandle;
 
     protected function _before()
     {
-        $this->accessor = Mockery::mock(PropertyAccessorInterface::class);
-        $this->validator = Mockery::mock(ValidatorInterface::class);
-        $this->handler = new ValidateRuleHandler($this->validator, $this->accessor);
+        $this->accessorHandle = Phony::mock(PropertyAccessorInterface::class);
+        $this->validatorHandle = Phony::mock(ValidatorInterface::class);
+        $this->handler = new ValidateRuleHandler($this->validatorHandle->get(), $this->accessorHandle->get());
     }
 
     public function testParameterTrue()
@@ -58,12 +58,12 @@ class ValidateRuleHandlerTest extends Test
 
         $this->setupAccessor($parameters, 'parameter', 'parameter-value');
 
-        $this->validator
-            ->shouldReceive('validate')
+        $this->validatorHandle
+            ->validate
             ->with('parameter-value', $constraint)
-            ->andReturn($this->createViolationsMock());
+            ->returns($this->createViolationsMock());
 
-        $this->assertNull($this->handler->checkRule($rule, $request));
+        $this->handler->checkRule($rule, $request);
     }
 
     /**
@@ -88,10 +88,10 @@ class ValidateRuleHandlerTest extends Test
 
         $violations = $this->createViolationsMock(1);
 
-        $this->validator
-            ->shouldReceive('validate')
+        $this->validatorHandle
+            ->validate
             ->with('wrong-parameter-value', $constraint)
-            ->andReturn($violations);
+            ->returns($violations);
 
         try {
             $this->handler->checkRule($rule, $request);
@@ -120,12 +120,12 @@ class ValidateRuleHandlerTest extends Test
 
         $this->setupAccessor($parameters, 'parameter.property', 'property-value');
 
-        $this->validator
-            ->shouldReceive('validate')
+        $this->validatorHandle
+            ->validate
             ->with('property-value', $constraint)
-            ->andReturn($this->createViolationsMock());
+            ->returns($this->createViolationsMock());
 
-        $this->assertNull($this->handler->checkRule($rule, $request));
+        $this->handler->checkRule($rule, $request);
     }
 
     /**
@@ -150,10 +150,10 @@ class ValidateRuleHandlerTest extends Test
 
         $violations = $this->createViolationsMock(1);
 
-        $this->validator
-            ->shouldReceive('validate')
+        $this->validatorHandle
+            ->validate
             ->with('wrong-property-value', $constraint)
-            ->andReturn($violations);
+            ->returns($violations);
 
         try {
             $this->handler->checkRule($rule, $request);
@@ -188,10 +188,10 @@ class ValidateRuleHandlerTest extends Test
 
         $violations = $this->createViolationsMock(1);
 
-        $this->validator
-            ->shouldReceive('validate')
+        $this->validatorHandle
+            ->validate
             ->with('wrong-property-value', $constraint)
-            ->andReturn($violations);
+            ->returns($violations);
 
         try {
             $this->handler->checkRule($rule, $request, 'component');
@@ -216,20 +216,18 @@ class ValidateRuleHandlerTest extends Test
         $parameters = [];
         $request = new Request('Test', 'GET', $parameters);
 
-        $this->accessor
-            ->shouldReceive('isReadable')
-            ->with(Mockery::on(function ($parameter) use ($parameters) {
-                return $parameter == (object) $parameters;
-            }), 'parameter')
+        $this->accessorHandle
+            ->isReadable
+            ->with($this->createParametersMatcher($parameters), 'parameter')
             ->once()
-            ->andReturn(false);
+            ->returns(false);
 
-        $this->validator
-            ->shouldReceive('validate')
+        $this->validatorHandle
+            ->validate
             ->with(null, $constraint)
-            ->andReturn($this->createViolationsMock());
+            ->returns($this->createViolationsMock());
 
-        $this->assertNull($this->handler->checkRule($rule, $request));
+        $this->handler->checkRule($rule, $request);
     }
 
     /**
@@ -237,7 +235,7 @@ class ValidateRuleHandlerTest extends Test
      */
     public function testUnknownAnnotation()
     {
-        $rule = Mockery::mock(RuleInterface::class);
+        $rule = Phony::mock(RuleInterface::class)->get();
         $request = new Request('Test', 'GET', []);
 
         $this->handler->checkRule($rule, $request);
@@ -246,42 +244,34 @@ class ValidateRuleHandlerTest extends Test
     /**
      * @param int $return
      *
-     * @return MockInterface
+     * @return ConstraintViolationListInterface
      */
     private function createViolationsMock($return = 0)
     {
-        $violations = Mockery::mock(ConstraintViolationListInterface::class);
-        $violations
-            ->shouldReceive('count')
-            ->once()
-            ->withNoArgs()
-            ->andReturn($return);
+        $violationsHandle = Phony::mock(ConstraintViolationListInterface::class);
+        $violationsHandle
+            ->count
+            ->returns($return);
 
-        return $violations;
+        return $violationsHandle->get();
     }
 
     /**
-     * @param array  $parameters
+     * @param array $parameters
      * @param string $property
      * @param string $return
      */
     private function setupAccessor(array $parameters, $property, $return)
     {
-        $this->accessor
-            ->shouldReceive('isReadable')
-            ->with(Mockery::on(function ($parameter) use ($parameters) {
-                return $parameter == (object) $parameters;
-            }), $property)
-            ->once()
-            ->andReturn(true);
+        $this->accessorHandle
+            ->isReadable
+            ->with($this->createParametersMatcher($parameters), $property)
+            ->returns(true);
 
-        $this->accessor
-            ->shouldReceive('getValue')
-            ->with(Mockery::on(function ($parameter) use ($parameters) {
-                return $parameter == (object) $parameters;
-            }), $property)
-            ->once()
-            ->andReturn($return);
+        $this->accessorHandle
+            ->getValue
+            ->with($this->createParametersMatcher($parameters), $property)
+            ->returns($return);
     }
 
     /**
@@ -303,21 +293,33 @@ class ValidateRuleHandlerTest extends Test
 
         $violations = $this->createViolationsMock(1);
 
-        $this->validator
-            ->shouldReceive('validate')
-            ->with(Mockery::on(function ($parameter) use ($parameters) {
-                return $parameter == (object) $parameters;
-            }), $constraint)
-            ->andReturn($violations);
+        $this->validatorHandle
+            ->validate
+            ->with($this->createParametersMatcher($parameters), $constraint)
+            ->returns($violations);
 
         try {
             $this->handler->checkRule($rule, $request);
         } catch (ParameterValidationException $e) {
             $this->assertSame($rule, $e->getRule());
             $this->assertSame(null, $e->getComponent());
-            $this->assertEquals((object) $parameters, $e->getValue());
+            $this->assertEquals((object)$parameters, $e->getValue());
             $this->assertSame($violations, $e->getViolations());
             throw $e;
         }
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return \PHPUnit_Framework_Constraint_Callback
+     */
+    private function createParametersMatcher(array $parameters)
+    {
+        return self::callback(
+            function ($parameter) use ($parameters) {
+                return $parameter == (object) $parameters;
+            }
+        );
     }
 }
