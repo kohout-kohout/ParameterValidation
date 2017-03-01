@@ -42,7 +42,7 @@ class ValidateRuleHandler implements RuleHandlerInterface
     public function checkRule(RuleInterface $rule, Request $request, $component = null)
     {
         if (!$rule instanceof Validate) {
-            throw new InvalidArgumentException('Unknown rule \''.get_class($rule).'\' given.');
+            throw new InvalidArgumentException(sprintf('Unknown rule "%s" given.', get_class($rule)));
         }
 
         $parameter = null;
