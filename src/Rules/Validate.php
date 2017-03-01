@@ -19,7 +19,7 @@ class Validate extends ValidationRule
     /**
      * @todo Don't use fully qualified type.
      *
-     * @see http://www.doctrine-project.org/jira/browse/DCOM-253
+     * @see https://github.com/doctrine/annotations/issues/86
      *
      * @var \Symfony\Component\Validator\Constraint[]|\Symfony\Component\Validator\Constraint
      */
