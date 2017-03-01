@@ -94,11 +94,11 @@ class ValidateRuleHandlerTest extends Unit
             $this->handler->checkRule($rule, $request);
             $this->fail();
         } catch (ParameterValidationException $e) {
-            $this->assertSame('Parameter "parameter" does not match the constraints.', $e->getMessage());
-            $this->assertSame($rule, $e->getRule());
-            $this->assertSame(null, $e->getComponent());
-            $this->assertSame('wrong-parameter-value', $e->getValue());
-            $this->assertSame($violations, $e->getViolations());
+            self::assertSame('Parameter "parameter" does not match the constraints.', $e->getMessage());
+            self::assertSame($rule, $e->getRule());
+            self::assertSame(null, $e->getComponent());
+            self::assertSame('wrong-parameter-value', $e->getValue());
+            self::assertSame($violations, $e->getViolations());
         }
     }
 
@@ -153,11 +153,11 @@ class ValidateRuleHandlerTest extends Unit
             $this->handler->checkRule($rule, $request);
             $this->fail();
         } catch (ParameterValidationException $e) {
-            $this->assertSame('Parameter "parameter.property" does not match the constraints.', $e->getMessage());
-            $this->assertSame($rule, $e->getRule());
-            $this->assertSame(null, $e->getComponent());
-            $this->assertSame('wrong-property-value', $e->getValue());
-            $this->assertSame($violations, $e->getViolations());
+            self::assertSame('Parameter "parameter.property" does not match the constraints.', $e->getMessage());
+            self::assertSame($rule, $e->getRule());
+            self::assertSame(null, $e->getComponent());
+            self::assertSame('wrong-property-value', $e->getValue());
+            self::assertSame($violations, $e->getViolations());
         }
     }
 
@@ -188,11 +188,11 @@ class ValidateRuleHandlerTest extends Unit
             $this->handler->checkRule($rule, $request, 'component');
             $this->fail();
         } catch (ParameterValidationException $e) {
-            $this->assertSame('Parameter "component-parameter.property" does not match the constraints.', $e->getMessage());
-            $this->assertSame($rule, $e->getRule());
-            $this->assertSame('component', $e->getComponent());
-            $this->assertSame('wrong-property-value', $e->getValue());
-            $this->assertSame($violations, $e->getViolations());
+            self::assertSame('Parameter "component-parameter.property" does not match the constraints.', $e->getMessage());
+            self::assertSame($rule, $e->getRule());
+            self::assertSame('component', $e->getComponent());
+            self::assertSame('wrong-property-value', $e->getValue());
+            self::assertSame($violations, $e->getViolations());
         }
     }
 
@@ -290,11 +290,11 @@ class ValidateRuleHandlerTest extends Unit
             $this->handler->checkRule($rule, $request);
             $this->fail();
         } catch (ParameterValidationException $e) {
-            $this->assertSame('Parameters do not match the constraints.', $e->getMessage());
-            $this->assertSame($rule, $e->getRule());
-            $this->assertSame(null, $e->getComponent());
-            $this->assertEquals((object) $parameters, $e->getValue());
-            $this->assertSame($violations, $e->getViolations());
+            self::assertSame('Parameters do not match the constraints.', $e->getMessage());
+            self::assertSame($rule, $e->getRule());
+            self::assertSame(null, $e->getComponent());
+            self::assertEquals((object) $parameters, $e->getValue());
+            self::assertSame($violations, $e->getViolations());
         }
     }
 }

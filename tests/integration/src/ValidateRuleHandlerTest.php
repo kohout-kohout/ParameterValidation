@@ -34,7 +34,7 @@ class ValidateRuleHandlerTest extends Unit
             'id' => 2,
         ]);
 
-        $this->assertTrue($this->verifier->isLinkVerified($request, new ArticlePresenter()));
+        self::assertTrue($this->verifier->isLinkVerified($request, new ArticlePresenter()));
     }
 
     public function testActionEditDisallowed()
@@ -45,7 +45,7 @@ class ValidateRuleHandlerTest extends Unit
             'id' => 2,
         ]);
 
-        $this->assertFalse($this->verifier->isLinkVerified($request, new ArticlePresenter()));
+        self::assertFalse($this->verifier->isLinkVerified($request, new ArticlePresenter()));
     }
 
     public function testInnerRules()
@@ -55,7 +55,7 @@ class ValidateRuleHandlerTest extends Unit
             'id' => 1,
         ]);
 
-        $this->assertFalse($this->verifier->isLinkVerified($request, new ArticlePresenter()));
+        self::assertFalse($this->verifier->isLinkVerified($request, new ArticlePresenter()));
     }
 
     public function testComponentSignalAllowed()
@@ -67,7 +67,7 @@ class ValidateRuleHandlerTest extends Unit
             'article-id' => 2,
         ]);
 
-        $this->assertTrue($this->verifier->isLinkVerified($request, (new ArticlePresenter())->getComponent('article')));
+        self::assertTrue($this->verifier->isLinkVerified($request, (new ArticlePresenter())->getComponent('article')));
     }
 
     public function testComponentSignalDisallowed()
@@ -79,7 +79,7 @@ class ValidateRuleHandlerTest extends Unit
             'article-id' => 2,
         ]);
 
-        $this->assertFalse($this->verifier->isLinkVerified($request, (new ArticlePresenter())->getComponent('article')));
+        self::assertFalse($this->verifier->isLinkVerified($request, (new ArticlePresenter())->getComponent('article')));
     }
 
     public function testExpressionAllowed()
@@ -90,7 +90,7 @@ class ValidateRuleHandlerTest extends Unit
             'to' => 2,
         ]);
 
-        $this->assertTrue($this->verifier->isLinkVerified($request, new ArticlePresenter()));
+        self::assertTrue($this->verifier->isLinkVerified($request, new ArticlePresenter()));
     }
 
     public function testExpressionDisallowed()
@@ -101,7 +101,7 @@ class ValidateRuleHandlerTest extends Unit
             'to' => 1,
         ]);
 
-        $this->assertFalse($this->verifier->isLinkVerified($request, new ArticlePresenter()));
+        self::assertFalse($this->verifier->isLinkVerified($request, new ArticlePresenter()));
     }
 
     public function testComponentExpressionAllowed()
@@ -113,7 +113,7 @@ class ValidateRuleHandlerTest extends Unit
             'article-to' => 2,
         ]);
 
-        $this->assertTrue($this->verifier->isLinkVerified($request, (new ArticlePresenter())->getComponent('article')));
+        self::assertTrue($this->verifier->isLinkVerified($request, (new ArticlePresenter())->getComponent('article')));
     }
 
     public function testComponentExpressionDisallowed()
@@ -125,6 +125,6 @@ class ValidateRuleHandlerTest extends Unit
             'article-to' => 1,
         ]);
 
-        $this->assertFalse($this->verifier->isLinkVerified($request, (new ArticlePresenter())->getComponent('article')));
+        self::assertFalse($this->verifier->isLinkVerified($request, (new ArticlePresenter())->getComponent('article')));
     }
 }
