@@ -1,13 +1,5 @@
 <?php
 
-/**
- * This file is part of the Arachne
- *
- * Copyright (c) Jáchym Toušek (enumag@gmail.com)
- *
- * For the full copyright and license information, please view the file license.md that was distributed with this source code.
- */
-
 namespace Arachne\ParameterValidation\Exception;
 
 use Arachne\Verifier\Exception\VerificationException;
@@ -19,61 +11,61 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 class ParameterValidationException extends VerificationException
 {
 
-	/** @var string */
-	private $component;
+    /** @var string */
+    private $component;
 
-	/** @var mixed */
-	private $value;
+    /** @var mixed */
+    private $value;
 
-	/** @var ConstraintViolationListInterface */
-	private $violations;
+    /** @var ConstraintViolationListInterface */
+    private $violations;
 
-	/**
-	 * @return string
-	 */
-	public function getComponent()
-	{
-		return $this->component;
-	}
+    /**
+     * @return string
+     */
+    public function getComponent()
+    {
+        return $this->component;
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getValue()
-	{
-		return $this->value;
-	}
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 
-	/**
-	 * @return ConstraintViolationListInterface
-	 */
-	public function getViolations()
-	{
-		return $this->violations;
-	}
+    /**
+     * @return ConstraintViolationListInterface
+     */
+    public function getViolations()
+    {
+        return $this->violations;
+    }
 
-	/**
-	 * @param string $component
-	 */
-	public function setComponent($component)
-	{
-		$this->component = $component;
-	}
+    /**
+     * @param string $component
+     */
+    public function setComponent($component)
+    {
+        $this->component = $component;
+    }
 
-	/**
-	 * @param mixed $value
-	 */
-	public function setValue($value)
-	{
-		$this->value = $value;
-	}
+    /**
+     * @param mixed $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
 
-	/**
-	 * @param ConstraintViolationListInterface $violations
-	 */
-	public function setViolations(ConstraintViolationListInterface $violations)
-	{
-		$this->violations = $violations;
-	}
+    /**
+     * @param ConstraintViolationListInterface $violations
+     */
+    public function setViolations(ConstraintViolationListInterface $violations)
+    {
+        $this->violations = $violations;
+    }
 
 }

@@ -10,16 +10,16 @@ use Nette\Object;
 class ArticleEntity extends Object
 {
 
-	private $id;
+    private $id;
 
-	public function __construct($id)
-	{
-		$this->id = $id;
-	}
+    public function __construct($id)
+    {
+        $this->id = $id;
+    }
 
-	public function getId()
-	{
-		return $this->id;
-	}
+    public function getId()
+    {
+        return $this->id;
+    }
 
 }

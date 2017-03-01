@@ -14,33 +14,33 @@ use Symfony\Component\Validator\Constraints\Expression;
 class ArticlePresenter extends Presenter
 {
 
-	/**
-	 * @Validate(parameter = "entity.id", constraints = @EqualTo(value = 1))
-	 * @Validate(parameter = "id", constraints = @EqualTo(value = 2))
-	 */
-	public function actionEdit(ArticleEntity $entity, $id)
-	{
-	}
+    /**
+     * @Validate(parameter = "entity.id", constraints = @EqualTo(value = 1))
+     * @Validate(parameter = "id", constraints = @EqualTo(value = 2))
+     */
+    public function actionEdit(ArticleEntity $entity, $id)
+    {
+    }
 
-	/**
-	 * @All({
-	 *   @Validate(parameter = "id", constraints = @EqualTo(value = 2))
-	 * })
-	 */
-	public function actionInnerRules($id)
-	{
-	}
+    /**
+     * @All({
+     *   @Validate(parameter = "id", constraints = @EqualTo(value = 2))
+     * })
+     */
+    public function actionInnerRules($id)
+    {
+    }
 
-	/**
-	 * @Validate(constraints = @Expression("value.from < value.to"))
-	 */
-	public function actionExpression($from, $to)
-	{
-	}
+    /**
+     * @Validate(constraints = @Expression("value.from < value.to"))
+     */
+    public function actionExpression($from, $to)
+    {
+    }
 
-	protected function createComponentArticle()
-	{
-		return new ArticleControl();
-	}
+    protected function createComponentArticle()
+    {
+        return new ArticleControl();
+    }
 
 }

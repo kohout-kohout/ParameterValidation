@@ -1,13 +1,5 @@
 <?php
 
-/**
- * This file is part of the Arachne
- *
- * Copyright (c) Jáchym Toušek (enumag@gmail.com)
- *
- * For the full copyright and license information, please view the file license.md that was distributed with this source code.
- */
-
 namespace Arachne\ParameterValidation\DI;
 
 use Arachne\Verifier\DI\VerifierExtension;
@@ -19,15 +11,15 @@ use Nette\DI\CompilerExtension;
 class ParameterValidationExtension extends CompilerExtension
 {
 
-	public function loadConfiguration()
-	{
-		$builder = $this->getContainerBuilder();
+    public function loadConfiguration()
+    {
+        $builder = $this->getContainerBuilder();
 
-		$builder->addDefinition($this->prefix('handler'))
-			->setClass('Arachne\ParameterValidation\Rules\ValidateRuleHandler')
-			->addTag(VerifierExtension::TAG_HANDLER, [
-				'Arachne\ParameterValidation\Rules\Validate',
-			]);
-	}
+        $builder->addDefinition($this->prefix('handler'))
+            ->setClass('Arachne\ParameterValidation\Rules\ValidateRuleHandler')
+            ->addTag(VerifierExtension::TAG_HANDLER, [
+                'Arachne\ParameterValidation\Rules\Validate',
+            ]);
+    }
 
 }

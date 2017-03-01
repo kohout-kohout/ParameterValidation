@@ -13,19 +13,19 @@ use Symfony\Component\Validator\Constraints\Expression;
 class ArticleControl extends Control
 {
 
-	/**
-	 * @Validate(parameter = "entity.id", constraints = @EqualTo(value = 1))
-	 * @Validate(parameter = "id", constraints = @EqualTo(value = 2))
-	 */
-	public function handleDelete(ArticleEntity $entity, $id)
-	{
-	}
+    /**
+     * @Validate(parameter = "entity.id", constraints = @EqualTo(value = 1))
+     * @Validate(parameter = "id", constraints = @EqualTo(value = 2))
+     */
+    public function handleDelete(ArticleEntity $entity, $id)
+    {
+    }
 
-	/**
-	 * @Validate(constraints = @Expression("value.from < value.to"))
-	 */
-	public function handleExpression($from, $to)
-	{
-	}
+    /**
+     * @Validate(constraints = @Expression("value.from < value.to"))
+     */
+    public function handleExpression($from, $to)
+    {
+    }
 
 }
