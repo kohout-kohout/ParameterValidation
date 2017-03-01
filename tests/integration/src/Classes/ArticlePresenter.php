@@ -14,8 +14,8 @@ use Symfony\Component\Validator\Constraints\Expression;
 class ArticlePresenter extends Presenter
 {
     /**
-     * @Validate(parameter = "entity.id", constraints = @EqualTo(value = 1))
-     * @Validate(parameter = "id", constraints = @EqualTo(value = 2))
+     * @Validate(parameter = "entity.id", constraints = @EqualTo(1))
+     * @Validate(parameter = "id", constraints = @EqualTo(2))
      */
     public function actionEdit(ArticleEntity $entity, $id)
     {
@@ -23,7 +23,7 @@ class ArticlePresenter extends Presenter
 
     /**
      * @All({
-     *   @Validate(parameter = "id", constraints = @EqualTo(value = 2))
+     *   @Validate(parameter = "id", constraints = @EqualTo(2))
      * })
      */
     public function actionInnerRules($id)

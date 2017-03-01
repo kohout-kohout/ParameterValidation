@@ -13,8 +13,8 @@ use Symfony\Component\Validator\Constraints\Expression;
 class ArticleControl extends Control
 {
     /**
-     * @Validate(parameter = "entity.id", constraints = @EqualTo(value = 1))
-     * @Validate(parameter = "id", constraints = @EqualTo(value = 2))
+     * @Validate(parameter = "entity.id", constraints = @EqualTo(1))
+     * @Validate(parameter = "id", constraints = @EqualTo(2))
      */
     public function handleDelete(ArticleEntity $entity, $id)
     {
