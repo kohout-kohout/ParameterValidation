@@ -62,13 +62,13 @@ class ValidateRuleHandler implements RuleHandlerInterface
         } else {
             $value = (object) $request->getParameters();
         }
+
         $violations = $this->validator->validate($value, $rule->constraints);
         if ($violations->count()) {
-            if ($rule->parameter) {
-                $message = sprintf('Parameter "%s" does not match the constraints.', $parameter);
-            } else {
-                $message = 'Parameters do not match the constraints.';
-            }
+            $message = $rule->parameter
+                ? sprintf('Parameter "%s" does not match the constraints.', $parameter)
+                : 'Parameters do not match the constraints.';
+
             $exception = new ParameterValidationException($rule, $message);
             $exception->setComponent($component);
             $exception->setValue($value);
