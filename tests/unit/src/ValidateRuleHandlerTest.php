@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Arachne\ParameterValidation\Exception\InvalidArgumentException;
 use Arachne\ParameterValidation\Exception\ParameterValidationException;
 use Arachne\ParameterValidation\Rules\Validate;
 use Arachne\ParameterValidation\Rules\ValidateRuleHandler;
@@ -66,10 +67,6 @@ class ValidateRuleHandlerTest extends Unit
         $this->handler->checkRule($rule, $request);
     }
 
-    /**
-     * @expectedException \Arachne\ParameterValidation\Exception\ParameterValidationException
-     * @expectedExceptionMessage Parameter "parameter" does not match the constraints.
-     */
     public function testParameterFalse()
     {
         $rule = new Validate();
@@ -95,12 +92,13 @@ class ValidateRuleHandlerTest extends Unit
 
         try {
             $this->handler->checkRule($rule, $request);
+            $this->fail();
         } catch (ParameterValidationException $e) {
+            $this->assertSame('Parameter "parameter" does not match the constraints.', $e->getMessage());
             $this->assertSame($rule, $e->getRule());
             $this->assertSame(null, $e->getComponent());
             $this->assertSame('wrong-parameter-value', $e->getValue());
             $this->assertSame($violations, $e->getViolations());
-            throw $e;
         }
     }
 
@@ -128,10 +126,6 @@ class ValidateRuleHandlerTest extends Unit
         $this->handler->checkRule($rule, $request);
     }
 
-    /**
-     * @expectedException \Arachne\ParameterValidation\Exception\ParameterValidationException
-     * @expectedExceptionMessage Parameter "parameter.property" does not match the constraints.
-     */
     public function testPropertyFalse()
     {
         $rule = new Validate();
@@ -157,19 +151,16 @@ class ValidateRuleHandlerTest extends Unit
 
         try {
             $this->handler->checkRule($rule, $request);
+            $this->fail();
         } catch (ParameterValidationException $e) {
+            $this->assertSame('Parameter "parameter.property" does not match the constraints.', $e->getMessage());
             $this->assertSame($rule, $e->getRule());
             $this->assertSame(null, $e->getComponent());
             $this->assertSame('wrong-property-value', $e->getValue());
             $this->assertSame($violations, $e->getViolations());
-            throw $e;
         }
     }
 
-    /**
-     * @expectedException \Arachne\ParameterValidation\Exception\ParameterValidationException
-     * @expectedExceptionMessage Parameter "component-parameter.property" does not match the constraints.
-     */
     public function testPropertyComponent()
     {
         $rule = new Validate();
@@ -195,12 +186,13 @@ class ValidateRuleHandlerTest extends Unit
 
         try {
             $this->handler->checkRule($rule, $request, 'component');
+            $this->fail();
         } catch (ParameterValidationException $e) {
+            $this->assertSame('Parameter "component-parameter.property" does not match the constraints.', $e->getMessage());
             $this->assertSame($rule, $e->getRule());
             $this->assertSame('component', $e->getComponent());
             $this->assertSame('wrong-property-value', $e->getValue());
             $this->assertSame($violations, $e->getViolations());
-            throw $e;
         }
     }
 
@@ -230,15 +222,15 @@ class ValidateRuleHandlerTest extends Unit
         $this->handler->checkRule($rule, $request);
     }
 
-    /**
-     * @expectedException \Arachne\ParameterValidation\Exception\InvalidArgumentException
-     */
     public function testUnknownAnnotation()
     {
         $rule = Phony::mock(RuleInterface::class)->get();
         $request = new Request('Test', 'GET', []);
 
-        $this->handler->checkRule($rule, $request);
+        try {
+            $this->handler->checkRule($rule, $request);
+            $this->fail();
+        } catch (InvalidArgumentException $e) {}
     }
 
     /**
@@ -274,10 +266,6 @@ class ValidateRuleHandlerTest extends Unit
             ->returns($return);
     }
 
-    /**
-     * @expectedException \Arachne\ParameterValidation\Exception\ParameterValidationException
-     * @expectedExceptionMessage Parameters do not match the constraints.
-     */
     public function testNoParameterException()
     {
         $rule = new Validate();
@@ -300,12 +288,13 @@ class ValidateRuleHandlerTest extends Unit
 
         try {
             $this->handler->checkRule($rule, $request);
+            $this->fail();
         } catch (ParameterValidationException $e) {
+            $this->assertSame('Parameters do not match the constraints.', $e->getMessage());
             $this->assertSame($rule, $e->getRule());
             $this->assertSame(null, $e->getComponent());
             $this->assertEquals((object) $parameters, $e->getValue());
             $this->assertSame($violations, $e->getViolations());
-            throw $e;
         }
     }
 }
