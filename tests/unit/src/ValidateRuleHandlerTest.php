@@ -68,7 +68,7 @@ class ValidateRuleHandlerTest extends Unit
 
     /**
      * @expectedException \Arachne\ParameterValidation\Exception\ParameterValidationException
-     * @expectedExceptionMessage Parameter 'parameter' does not match the constraints.
+     * @expectedExceptionMessage Parameter "parameter" does not match the constraints.
      */
     public function testParameterFalse()
     {
@@ -130,7 +130,7 @@ class ValidateRuleHandlerTest extends Unit
 
     /**
      * @expectedException \Arachne\ParameterValidation\Exception\ParameterValidationException
-     * @expectedExceptionMessage Parameter 'parameter.property' does not match the constraints.
+     * @expectedExceptionMessage Parameter "parameter.property" does not match the constraints.
      */
     public function testPropertyFalse()
     {
@@ -168,7 +168,7 @@ class ValidateRuleHandlerTest extends Unit
 
     /**
      * @expectedException \Arachne\ParameterValidation\Exception\ParameterValidationException
-     * @expectedExceptionMessage Parameter 'component-parameter.property' does not match the constraints.
+     * @expectedExceptionMessage Parameter "component-parameter.property" does not match the constraints.
      */
     public function testPropertyComponent()
     {
@@ -257,7 +257,7 @@ class ValidateRuleHandlerTest extends Unit
     }
 
     /**
-     * @param array $parameters
+     * @param array  $parameters
      * @param string $property
      * @param string $return
      */
@@ -303,7 +303,7 @@ class ValidateRuleHandlerTest extends Unit
         } catch (ParameterValidationException $e) {
             $this->assertSame($rule, $e->getRule());
             $this->assertSame(null, $e->getComponent());
-            $this->assertEquals((object)$parameters, $e->getValue());
+            $this->assertEquals((object) $parameters, $e->getValue());
             $this->assertSame($violations, $e->getViolations());
             throw $e;
         }

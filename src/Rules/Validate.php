@@ -21,7 +21,7 @@ class Validate extends ValidationRule
      *
      * @see http://www.doctrine-project.org/jira/browse/DCOM-253
      *
-     * @var \Symfony\Component\Validator\Constraint[]
+     * @var \Symfony\Component\Validator\Constraint[]|\Symfony\Component\Validator\Constraint
      */
     public $constraints;
 }

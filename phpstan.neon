@@ -4,4 +4,5 @@ includes:
 
 parameters:
     ignoreErrors:
-        - '#^Access to an undefined property Eloquent\\Phony\\Mock\\Handle\\InstanceHandle::\$[a-zA-Z]+#'
+        - '#^Access to an undefined property Eloquent\\Phony\\Mock\\Handle\\InstanceHandle::\$[a-zA-Z]++#'
+        - '#^Method [a-zA-Z\\]++::[a-zA-Z]++\(\) should return [a-zA-Z\\]++ but returns Eloquent\\Phony\\Mock\\Mock#'

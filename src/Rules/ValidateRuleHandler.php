@@ -37,7 +37,7 @@ class ValidateRuleHandler implements RuleHandlerInterface
      * @param Request       $request
      * @param string        $component
      *
-     * @throws FailedAuthenticationException
+     * @throws ParameterValidationException
      */
     public function checkRule(RuleInterface $rule, Request $request, $component = null)
     {
@@ -45,6 +45,7 @@ class ValidateRuleHandler implements RuleHandlerInterface
             throw new InvalidArgumentException('Unknown rule \''.get_class($rule).'\' given.');
         }
 
+        $parameter = null;
         if ($rule->parameter) {
             $parameters = (object) $request->getParameters();
             $parameter = $component ? $component.'-'.$rule->parameter : $rule->parameter;
@@ -64,7 +65,7 @@ class ValidateRuleHandler implements RuleHandlerInterface
         $violations = $this->validator->validate($value, $rule->constraints);
         if ($violations->count()) {
             if ($rule->parameter) {
-                $message = "Parameter '$parameter' does not match the constraints.";
+                $message = sprintf('Parameter "%s" does not match the constraints.', $parameter);
             } else {
                 $message = 'Parameters do not match the constraints.';
             }
