@@ -1,9 +1,9 @@
 {
     "name": "arachne/parameter-validation",
-	"description": "Parameter validation for Arachne/Verifier.",
+    "description": "Parameter validation for Arachne/Verifier.",
     "type": "library",
     "keywords": [ "nette", "arachne", "security" ],
-	"license": "MIT",
+    "license": "MIT",
     "authors": [
         {
             "name": "Jáchym Toušek",
@@ -12,20 +12,20 @@
         }
     ],
     "require": {
-		"php": "^5.6.0|^7.0.0",
+        "php": "^5.6.0|^7.0.0",
         "arachne/verifier": "^0.9.0",
         "kdyby/validator": "^0.4.0",
         "nette/di": "^2.4.0",
         "symfony/property-access": "^3.2.0"
     },
     "require-dev": {
-		"arachne/codeception": "^0.7.3",
-		"codeception/codeception": "^2.2.0",
-		"eloquent/phony": "^0.14.0",
+        "arachne/codeception": "^0.7.3",
+        "codeception/codeception": "^2.2.0",
+        "eloquent/phony": "^0.14.0",
         "kdyby/translation": "^2.2.0",
         "symfony/expression-language": "^3.2.0"
     },
-	"minimum-stability": "alpha",
+    "minimum-stability": "alpha",
     "autoload": {
         "psr-4": {
             "Arachne\\ParameterValidation\\": "src"
@@ -37,18 +37,18 @@
             "Tests\\Integration\\": "tests/integration/src"
         }
     },
-	"scripts": {
-		"all": [
-			"@fix",
-			"@analyse",
-			"@test"
-		],
-		"tools": "sh composer-tools.sh",
-		"fix": "\"vendor-tools/bin/php-cs-fixer\" fix",
-		"analyse": "\"vendor-tools/bin/phpstan\" analyse --no-progress --level=4 --configuration=phpstan.neon src tests",
-		"test": [
-			"\"vendor/bin/codecept\" build",
-			"\"vendor/bin/codecept\" run"
-		]
-	}
+    "scripts": {
+        "all": [
+            "@fix",
+            "@analyse",
+            "@test"
+        ],
+        "tools": "sh composer-tools.sh",
+        "fix": "\"vendor-tools/bin/php-cs-fixer\" fix",
+        "analyse": "\"vendor-tools/bin/phpstan\" analyse --no-progress --level=4 --configuration=phpstan.neon src tests",
+        "test": [
+            "\"vendor/bin/codecept\" build",
+            "\"vendor/bin/codecept\" run"
+        ]
+    }
 }
