@@ -48,8 +48,7 @@ class ValidateRuleHandlerTest extends Unit
         $rule = new Validate();
         $rule->parameter = 'parameter';
 
-        $constraint = new EqualTo();
-        $constraint->value = 'property-value';
+        $constraint = new EqualTo('property-value');
         $rule->constraints = $constraint;
 
         $parameters = [
@@ -72,8 +71,7 @@ class ValidateRuleHandlerTest extends Unit
         $rule = new Validate();
         $rule->parameter = 'parameter';
 
-        $constraint = new EqualTo();
-        $constraint->value = 'parameter-value';
+        $constraint = new EqualTo('parameter-value');
         $rule->constraints = $constraint;
 
         $parameters = [
@@ -107,8 +105,7 @@ class ValidateRuleHandlerTest extends Unit
         $rule = new Validate();
         $rule->parameter = 'parameter.property';
 
-        $constraint = new EqualTo();
-        $constraint->value = 'property-value';
+        $constraint = new EqualTo('property-value');
         $rule->constraints = $constraint;
 
         $parameters = [
@@ -131,8 +128,7 @@ class ValidateRuleHandlerTest extends Unit
         $rule = new Validate();
         $rule->parameter = 'parameter.property';
 
-        $constraint = new EqualTo();
-        $constraint->value = 'property-value';
+        $constraint = new EqualTo('property-value');
         $rule->constraints = $constraint;
 
         $parameters = [
@@ -166,8 +162,7 @@ class ValidateRuleHandlerTest extends Unit
         $rule = new Validate();
         $rule->parameter = 'parameter.property';
 
-        $constraint = new EqualTo();
-        $constraint->value = 'property-value';
+        $constraint = new EqualTo('property-value');
         $rule->constraints = $constraint;
 
         $parameters = [
@@ -194,32 +189,6 @@ class ValidateRuleHandlerTest extends Unit
             self::assertSame('wrong-property-value', $e->getValue());
             self::assertSame($violations, $e->getViolations());
         }
-    }
-
-    public function testMissingParameter()
-    {
-        $rule = new Validate();
-        $rule->parameter = 'parameter';
-
-        $constraint = new EqualTo();
-        $constraint->value = null;
-        $rule->constraints = $constraint;
-
-        $parameters = [];
-        $request = new Request('Test', 'GET', $parameters);
-
-        $this->accessorHandle
-            ->isReadable
-            ->with(self::equalTo((object) $parameters), 'parameter')
-            ->once()
-            ->returns(false);
-
-        $this->validatorHandle
-            ->validate
-            ->with(null, $constraint)
-            ->returns($this->createViolationsMock());
-
-        $this->handler->checkRule($rule, $request);
     }
 
     public function testUnknownAnnotation()
@@ -271,8 +240,7 @@ class ValidateRuleHandlerTest extends Unit
     {
         $rule = new Validate();
 
-        $constraint = new EqualTo();
-        $constraint->value = 'value';
+        $constraint = new EqualTo('value');
         $rule->constraints = $constraint;
 
         $parameters = [
