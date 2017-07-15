@@ -11,7 +11,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 class ParameterValidationException extends VerificationException
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $component;
 
@@ -26,7 +26,7 @@ class ParameterValidationException extends VerificationException
     private $violations;
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getComponent()
     {
@@ -50,7 +50,7 @@ class ParameterValidationException extends VerificationException
     }
 
     /**
-     * @param string $component
+     * @param string|null $component
      */
     public function setComponent($component)
     {

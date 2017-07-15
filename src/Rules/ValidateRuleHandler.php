@@ -35,7 +35,7 @@ class ValidateRuleHandler implements RuleHandlerInterface
     /**
      * @param RuleInterface $rule
      * @param Request       $request
-     * @param string        $component
+     * @param string|null   $component
      *
      * @throws ParameterValidationException
      */
