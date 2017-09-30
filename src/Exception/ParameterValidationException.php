@@ -21,14 +21,11 @@ class ParameterValidationException extends VerificationException
     private $value;
 
     /**
-     * @var ConstraintViolationListInterface
+     * @var ConstraintViolationListInterface|null
      */
     private $violations;
 
-    /**
-     * @return string|null
-     */
-    public function getComponent()
+    public function getComponent(): ?string
     {
         return $this->component;
     }
@@ -41,18 +38,12 @@ class ParameterValidationException extends VerificationException
         return $this->value;
     }
 
-    /**
-     * @return ConstraintViolationListInterface
-     */
-    public function getViolations()
+    public function getViolations(): ?ConstraintViolationListInterface
     {
         return $this->violations;
     }
 
-    /**
-     * @param string|null $component
-     */
-    public function setComponent($component)
+    public function setComponent(?string $component): void
     {
         $this->component = $component;
     }
@@ -60,15 +51,12 @@ class ParameterValidationException extends VerificationException
     /**
      * @param mixed $value
      */
-    public function setValue($value)
+    public function setValue($value): void
     {
         $this->value = $value;
     }
 
-    /**
-     * @param ConstraintViolationListInterface $violations
-     */
-    public function setViolations(ConstraintViolationListInterface $violations)
+    public function setViolations(?ConstraintViolationListInterface $violations): void
     {
         $this->violations = $violations;
     }

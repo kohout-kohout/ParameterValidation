@@ -26,20 +26,18 @@ class ValidateRuleHandler implements RuleHandlerInterface
      */
     private $propertyAccessor;
 
-    public function __construct(ValidatorInterface $validator, PropertyAccessorInterface $propertyAccessor = null)
+    public function __construct(ValidatorInterface $validator, ?PropertyAccessorInterface $propertyAccessor = null)
     {
         $this->validator = $validator;
         $this->propertyAccessor = $propertyAccessor ?: PropertyAccess::createPropertyAccessor();
     }
 
     /**
-     * @param RuleInterface $rule
-     * @param Request       $request
-     * @param string|null   $component
+     * @param Validate $rule
      *
      * @throws ParameterValidationException
      */
-    public function checkRule(RuleInterface $rule, Request $request, $component = null)
+    public function checkRule(RuleInterface $rule, Request $request, ?string $component = null): void
     {
         if (!$rule instanceof Validate) {
             throw new InvalidArgumentException(sprintf('Unknown rule "%s" given.', get_class($rule)));

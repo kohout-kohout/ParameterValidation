@@ -36,14 +36,14 @@ class ValidateRuleHandlerTest extends Unit
      */
     private $validatorHandle;
 
-    protected function _before()
+    protected function _before(): void
     {
         $this->accessorHandle = Phony::mock(PropertyAccessorInterface::class);
         $this->validatorHandle = Phony::mock(ValidatorInterface::class);
         $this->handler = new ValidateRuleHandler($this->validatorHandle->get(), $this->accessorHandle->get());
     }
 
-    public function testParameterTrue()
+    public function testParameterTrue(): void
     {
         $rule = new Validate();
         $rule->parameter = 'parameter';
@@ -66,7 +66,7 @@ class ValidateRuleHandlerTest extends Unit
         $this->handler->checkRule($rule, $request);
     }
 
-    public function testParameterFalse()
+    public function testParameterFalse(): void
     {
         $rule = new Validate();
         $rule->parameter = 'parameter';
@@ -100,7 +100,7 @@ class ValidateRuleHandlerTest extends Unit
         }
     }
 
-    public function testPropertyTrue()
+    public function testPropertyTrue(): void
     {
         $rule = new Validate();
         $rule->parameter = 'parameter.property';
@@ -123,7 +123,7 @@ class ValidateRuleHandlerTest extends Unit
         $this->handler->checkRule($rule, $request);
     }
 
-    public function testPropertyFalse()
+    public function testPropertyFalse(): void
     {
         $rule = new Validate();
         $rule->parameter = 'parameter.property';
@@ -157,7 +157,7 @@ class ValidateRuleHandlerTest extends Unit
         }
     }
 
-    public function testPropertyComponent()
+    public function testPropertyComponent(): void
     {
         $rule = new Validate();
         $rule->parameter = 'parameter.property';
@@ -191,7 +191,7 @@ class ValidateRuleHandlerTest extends Unit
         }
     }
 
-    public function testUnknownAnnotation()
+    public function testUnknownAnnotation(): void
     {
         $rule = Phony::mock(RuleInterface::class)->get();
         $request = new Request('Test', 'GET', []);
@@ -203,12 +203,7 @@ class ValidateRuleHandlerTest extends Unit
         }
     }
 
-    /**
-     * @param int $return
-     *
-     * @return ConstraintViolationListInterface
-     */
-    private function createViolationsMock($return = 0)
+    private function createViolationsMock(int $return = 0): ConstraintViolationListInterface
     {
         $violationsHandle = Phony::mock(ConstraintViolationListInterface::class);
         $violationsHandle
@@ -218,12 +213,7 @@ class ValidateRuleHandlerTest extends Unit
         return $violationsHandle->get();
     }
 
-    /**
-     * @param array  $parameters
-     * @param string $property
-     * @param string $return
-     */
-    private function setupAccessor(array $parameters, $property, $return)
+    private function setupAccessor(array $parameters, string $property, string $return): void
     {
         $this->accessorHandle
             ->isReadable
@@ -236,7 +226,7 @@ class ValidateRuleHandlerTest extends Unit
             ->returns($return);
     }
 
-    public function testNoParameterException()
+    public function testNoParameterException(): void
     {
         $rule = new Validate();
 

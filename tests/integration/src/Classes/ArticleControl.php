@@ -16,14 +16,14 @@ class ArticleControl extends Control
      * @Validate(parameter = "entity.id", constraints = @EqualTo(1))
      * @Validate(parameter = "id", constraints = @EqualTo(2))
      */
-    public function handleDelete(ArticleEntity $entity, $id)
+    public function handleDelete(ArticleEntity $entity, $id): void
     {
     }
 
     /**
      * @Validate(constraints = @Expression("value.from < value.to"))
      */
-    public function handleExpression($from, $to)
+    public function handleExpression($from, $to): void
     {
     }
 }

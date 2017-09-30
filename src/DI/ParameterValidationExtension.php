@@ -12,7 +12,7 @@ use Nette\DI\CompilerExtension;
  */
 class ParameterValidationExtension extends CompilerExtension
 {
-    public function loadConfiguration()
+    public function loadConfiguration(): void
     {
         $builder = $this->getContainerBuilder();
 

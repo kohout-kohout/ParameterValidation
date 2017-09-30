@@ -17,7 +17,7 @@ class ArticlePresenter extends Presenter
      * @Validate(parameter = "entity.id", constraints = @EqualTo(1))
      * @Validate(parameter = "id", constraints = @EqualTo(2))
      */
-    public function actionEdit(ArticleEntity $entity, $id)
+    public function actionEdit(ArticleEntity $entity, $id): void
     {
     }
 
@@ -26,18 +26,18 @@ class ArticlePresenter extends Presenter
      *   @Validate(parameter = "id", constraints = @EqualTo(2))
      * })
      */
-    public function actionInnerRules($id)
+    public function actionInnerRules($id): void
     {
     }
 
     /**
      * @Validate(constraints = @Expression("value.from < value.to"))
      */
-    public function actionExpression($from, $to)
+    public function actionExpression($from, $to): void
     {
     }
 
-    protected function createComponentArticle()
+    protected function createComponentArticle(): ArticleControl
     {
         return new ArticleControl();
     }
