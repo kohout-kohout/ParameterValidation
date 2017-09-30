@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Arachne\ParameterValidation\Rules;
 
 use Arachne\Verifier\Rules\ValidationRule;
