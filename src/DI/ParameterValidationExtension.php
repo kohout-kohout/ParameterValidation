@@ -17,7 +17,7 @@ class ParameterValidationExtension extends CompilerExtension
         $builder = $this->getContainerBuilder();
 
         $builder->addDefinition($this->prefix('handler'))
-            ->setClass(ValidateRuleHandler::class)
+            ->setType(ValidateRuleHandler::class)
             ->addTag(
                 VerifierExtension::TAG_HANDLER,
                 [
