@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use Arachne\ParameterValidation\Exception\InvalidArgumentException;
 use Arachne\ParameterValidation\Exception\ParameterValidationException;
 use Arachne\ParameterValidation\Rules\Validate;
 use Arachne\ParameterValidation\Rules\ValidateRuleHandler;
-use Arachne\Verifier\RuleInterface;
 use Codeception\Test\Unit;
 use Eloquent\Phony\Mock\Handle\InstanceHandle;
 use Eloquent\Phony\Phpunit\Phony;
@@ -190,18 +188,6 @@ class ValidateRuleHandlerTest extends Unit
             self::assertSame('component', $e->getComponent());
             self::assertSame('wrong-property-value', $e->getValue());
             self::assertSame($violations, $e->getViolations());
-        }
-    }
-
-    public function testUnknownAnnotation(): void
-    {
-        $rule = Phony::mock(RuleInterface::class)->get();
-        $request = new Request('Test', 'GET', []);
-
-        try {
-            $this->handler->checkRule($rule, $request);
-            self::fail();
-        } catch (InvalidArgumentException $e) {
         }
     }
 
