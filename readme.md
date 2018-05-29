@@ -20,5 +20,5 @@ Now you need to register the extension using your [neon](https://ne-on.org) conf
 
 ```neon
 extensions:
-    arachne.parameterValidation: Arachne\ParameterValidation\Exception\ParameterValidationException
+    arachne.parameterValidation: Arachne\ParameterValidation\DI\ParameterValidationExtension
 ```
