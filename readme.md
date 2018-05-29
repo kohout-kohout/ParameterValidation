@@ -15,3 +15,10 @@ The best way to install Arachne/ParameterValidation is using [Composer](http://g
 ```sh
 composer require arachne/parameter-validation
 ```
+
+Now you need to register the extension using your [neon](https://ne-on.org) config file.
+
+```neon
+extensions:
+    arachne.parameterValidation: Arachne\ParameterValidation\Exception\ParameterValidationException
+```
