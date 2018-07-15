@@ -35,8 +35,6 @@ class ValidateRuleHandler implements RuleHandlerInterface
     }
 
     /**
-     * @param Validate $rule
-     *
      * @throws ParameterValidationException
      */
     public function checkRule(RuleInterface $rule, Request $request, ?string $component = null): void
@@ -46,11 +44,11 @@ class ValidateRuleHandler implements RuleHandlerInterface
         }
 
         $parameter = null;
-        if ($rule->parameter) {
+        if ($rule->parameter !== null) {
             $parameters = (object) $request->getParameters();
-            $parameter = $component ? $component.'-'.$rule->parameter : $rule->parameter;
+            $parameter = $component !== null ? $component.'-'.$rule->parameter : $rule->parameter;
             $value = $this->propertyAccessor->isReadable($parameters, $parameter) ? $this->propertyAccessor->getValue($parameters, $parameter) : null;
-        } elseif ($component) {
+        } elseif ($component !== null) {
             $value = [];
             $prefixLength = strlen($component) + 1;
             foreach ($request->getParameters() as $key => $val) {
@@ -64,8 +62,8 @@ class ValidateRuleHandler implements RuleHandlerInterface
         }
 
         $violations = $this->validator->validate($value, $rule->constraints);
-        if ($violations->count()) {
-            $message = $rule->parameter
+        if ($violations->count() > 0) {
+            $message = $rule->parameter !== null
                 ? sprintf('Parameter "%s" does not match the constraints.', $parameter)
                 : 'Parameters do not match the constraints.';
 
