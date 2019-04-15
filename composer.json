@@ -13,9 +13,6 @@
     ],
     "require": {
         "php": "^7.1.0",
-        "arachne/verifier": "^0.10.0",
-        "kdyby/validator": "^0.5.0",
-        "nette/di": "^2.4.10",
         "symfony/property-access": "^3.2.0 || ^4.0.0"
     },
     "require-dev": {
